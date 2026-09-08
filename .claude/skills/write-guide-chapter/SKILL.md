@@ -94,8 +94,8 @@ Every chapter file is a single `<section>` with no surrounding `<html>`/`<head>`
   `manifest.json`'s neighboring chapters or grep the tab's `chapters/` folder
   for `data-g="` to see current groups (fund: 總覽/曝光原理/構圖思維/攝影眼;
   griv: 入門/攝影原理/操作核心/影像風格/進階功能/拍完之後/速查; pocket4pro:
-  基礎認識/基礎設定/常見拍攝手法/進階設定/配件與注意事項; advanced: 總覽/調色基礎/
-  調色進階/剪輯入門/剪輯進階). Only introduce a
+  基礎認識/基礎設定/常見拍攝手法/進階設定/運鏡技巧/主題運鏡/配件與注意事項; advanced:
+  總覽/調色基礎/調色進階/剪輯入門/剪輯進階). Only introduce a
   new group name if the chapter genuinely doesn't fit any existing one —
   a new group of one chapter is fine (fund's "總覽" is precedent).
 - No `data-ch` attribute — that was retired when the site moved to
