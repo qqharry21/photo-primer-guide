@@ -7,14 +7,23 @@
   "files": [
     "00-intro.html",
     "10-memory-cards.html",
+    "11-lens-basics.html",
+    "12-filters.html",
+    "13-tripod-stabilization.html",
     "01-exposure-triangle.html",
     "02-aperture-shutter-iso.html",
     "03-metering-histogram.html",
+    "14-white-balance-color-temp.html",
+    "15-long-exposure-bracketing.html",
     "04-focus-concepts.html",
     "05-composition-basics.html",
     "06-composition-advanced.html",
     "07-light-and-color.html",
     "08-photographers-eye.html",
+    "16-portrait-lighting.html",
+    "17-landscape-golden-hour.html",
+    "18-night-astro.html",
+    "19-macro-closeup.html",
     "09-practice-plan.html"
   ]
 }
