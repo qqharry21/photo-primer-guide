@@ -3,7 +3,7 @@
    每個分頁的 manifest.json、每個分頁 chapters 資料夾裡的章節檔案)之後,
    一定要把 VERSION 加一,使用者下次開啟才會拿到新版,不然會一直被
    cache-first 的 RUNTIME 快取卡在舊內容。 */
-const VERSION   = 'gr4-v18';
+const VERSION   = 'gr4-v19';
 const CORE      = VERSION + '-core';
 const RUNTIME   = VERSION + '-runtime';
 
