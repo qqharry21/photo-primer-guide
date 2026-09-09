@@ -1,0 +1,77 @@
+<section data-t="長曝光與包圍曝光基礎" data-g="曝光原理">
+<div class="osd"><span class="hot">基礎</span><span class="no"></span></div>
+<div class="wrap">
+<h2 class="ch">長曝光與包圍曝光基礎</h2>
+<p class="sub">兩種都是「用時間換取單張快門做不到的效果」,一個換動態模糊,一個換動態範圍。</p>
+
+<h3>長曝光:用時間累積畫面</h3>
+<p><span class="src s-gen">通用知識</span> 長曝光就是把快門開啟的時間拉長(從幾秒到數分鐘不等),讓感光元件在這段時間內持續收光。靜止的東西依然清楚,<strong>移動中的東西會在畫面裡拖出軌跡或變得模糊平滑</strong>——這正是長曝光最常被使用的原因。</p>
+<div class="tw"><table>
+<tr><th>快門長度</th><th>典型效果</th><th>常見題材</th></tr>
+<tr><td>1/4 – 2 秒</td><td>輕微拖影,人群變成模糊的流動感</td><td>街景、車站</td></tr>
+<tr><td>2 – 30 秒</td><td>水流變得如霧如絲、車燈拉成連續光軌</td><td>瀑布、溪流、公路車軌</td></tr>
+<tr><td>數分鐘以上(需 B 快門)</td><td>雲層拖成方向感明顯的線條、星星拖出弧線</td><td>雲的縮時感、星軌</td></tr>
+</table></div>
+<figure>
+<svg viewBox="0 0 640 180" role="img" aria-label="快門越慢,移動中的物體在畫面裡拖出的軌跡越明顯,靜止物體則不受影響">
+<rect width="640" height="180" fill="#fff"/>
+<g font-family="Noto Sans TC">
+<text x="120" y="30" text-anchor="middle" font-size="13" font-weight="700" fill="#16191B">快門 1/250s</text>
+<circle cx="120" cy="90" r="10" fill="#16191B"/>
+<rect x="60" y="130" width="120" height="14" fill="#D6D6D1"/>
+<text x="120" y="165" text-anchor="middle" font-size="10" fill="#63676B">移動物體被凍結成清楚的點</text>
+
+<text x="330" y="30" text-anchor="middle" font-size="13" font-weight="700" fill="#16191B">快門 1s</text>
+<ellipse cx="330" cy="90" rx="30" ry="9" fill="#16191B" fill-opacity=".5"/>
+<rect x="270" y="130" width="120" height="14" fill="#D6D6D1"/>
+<text x="330" y="165" text-anchor="middle" font-size="10" fill="#63676B">拖出短短的模糊軌跡</text>
+
+<text x="540" y="30" text-anchor="middle" font-size="13" font-weight="700" fill="#16191B">快門 10s</text>
+<line x1="480" y1="90" x2="600" y2="90" stroke="#16191B" stroke-width="6" stroke-linecap="round" opacity=".55"/>
+<rect x="480" y="130" width="120" height="14" fill="#D6D6D1"/>
+<text x="540" y="165" text-anchor="middle" font-size="10" fill="#63676B">拉成連續一整條軌跡</text>
+</g>
+</svg>
+<figcaption>三張示意同一個移動中的主體,在不同快門長度下留在畫面上的樣子——快門越慢,移動物體累積的位移軌跡越長越模糊;灰色地面(靜止物體)則三張都一樣清楚,不受快門長度影響。</figcaption>
+</figure>
+
+<h3>長曝光需要的三個條件</h3>
+<div class="tw"><table>
+<tr><th>條件</th><th>為什麼需要</th></tr>
+<tr><td>穩定的支撐(通常是腳架)</td><td>快門開啟數秒到數分鐘,手持必定晃動,見<a href="#fund:13-tripod-stabilization.html">三腳架與穩定器基礎</a></td></tr>
+<tr><td>足夠壓低的進光量</td><td>白天長曝光,快門開這麼久進光量會爆量過曝,通常需要<a href="#fund:12-filters.html">ND 減光鏡</a>壓光</td></tr>
+<tr><td>避免快門震動</td><td>用快門線、遙控器或倒數自拍計時器觸發快門,減少手指按下瞬間的震動影響畫質</td></tr>
+</table></div>
+<div class="box warn">
+<span class="lbl">B 快門(Bulb)是什麼</span>
+<p style="margin-bottom:0">相機標準快門通常最長只到 30 秒,想曝光更久需要切到 <strong>B 快門模式</strong>——按住快門鍵不放,快門就持續開啟,放開才結束曝光,實際曝光時間由你自己控制(通常搭配快門線或遙控器,避免手指全程按著造成震動)。</p>
+</div>
+
+<h3>包圍曝光(Bracketing):同一畫面,拍好幾個曝光值</h3>
+<p>包圍曝光是設定相機自動用不同曝光值(通常是標準、加曝、減曝各一到多張)連續拍攝同一構圖——目的是應付單張照片的動態範圍不夠涵蓋整個場景亮暗反差的情況(見<a href="#fund:03-metering-histogram.html">測光與直方圖</a>裡對動態範圍的討論)。</p>
+<div class="tw"><table>
+<tr><th>用途</th><th>做法</th></tr>
+<tr><td>HDR 合成</td><td>拍 3-5 張不同曝光值,後製軟體合併成一張同時保留亮部暗部細節的照片</td></tr>
+<tr><td>保底不失敗</td><td>不確定現場測光準不準時,包圍曝光留一個安全網,挑最好的一張用</td></tr>
+<tr><td>手動漸層合成</td><td>拍一張天空曝光正確、一張地面曝光正確,後製手動遮罩合併(比自動 HDR 更可控)</td></tr>
+</table></div>
+
+<h3>HDR 是什麼:動態範圍不夠時的解法</h3>
+<p><span class="src s-gen">通用知識</span> HDR(High Dynamic Range,高動態範圍)是把包圍曝光拍到的多張不同曝光值照片,透過軟體演算法合併成一張——原理是每張各自負責畫面裡不同的亮度區間(過曝那張負責記錄暗部細節,死黑那張負責記錄亮部細節),合併後的單張圖片就能同時保留原本單一曝光顧不到的亮暗細節。</p>
+<div class="box tip">
+<span class="lbl">HDR 容易被過度使用</span>
+<p style="margin-bottom:0"><span class="src s-mine">本站建議</span> HDR 合成過頭的照片容易出現「假假的」不自然感——天空太有戲劇性、陰影裡細節多到不合常理。合成後把強度調回接近人眼實際觀感的程度,通常比拉滿所有滑桿更耐看。也不是所有反差大的場景都需要 HDR——如果只是想平衡天空跟地面兩塊區域的亮度,現場用<a href="#fund:12-filters.html">漸層 ND 鏡</a>一次到位,常常比拍好幾張後製合成更省事。</p>
+</div>
+
+<div class="box note">
+<span class="lbl">這台機器怎麼開長曝光跟包圍曝光,看裝置分頁</span>
+<p style="margin-bottom:0">上面是不分機型都成立的通用知識;RICOH GR IV 的 B 快門與長曝光操作見<a href="#griv:17-mmode.html">M 模式全攻略</a>;DJI Osmo Pocket 4 Pro 的慢快門錄影見<a href="#pocket4pro:08-special-modes.html">進階拍攝模式</a>。</p>
+</div>
+
+<div class="drill"><span class="lbl">練習</span>
+<ol>
+<li>找一段有水流或車流的場景,上腳架分別用 1/250s、1s、10s 左右快門各拍一張,比較動態模糊的差異。</li>
+<li>找一個亮暗反差大的場景(例如逆光的窗邊),用包圍曝光拍 3 張不同曝光值,試著用後製軟體合併成一張 HDR。</li>
+<li>比較同一個場景「HDR 合成」跟「漸層 ND 鏡直出」兩種做法的效率與畫面自然度。</li>
+</ol></div>
+</div></section>
