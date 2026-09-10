@@ -4,7 +4,7 @@
 <h2 class="ch">一級調色與二級調色:Power Windows 與局部遮罩</h2>
 <p class="sub">前面幾章調的都是整張畫面。這一章開始只調畫面裡的某一塊。</p>
 
-<h3>先分清楚兩個層次</h3>
+<h3 id="s-3cf2ed">先分清楚兩個層次</h3>
 <div class="tw"><table>
 <tr><th></th><th>一級調色(Primary)</th><th>二級調色(Secondary)</th></tr>
 <tr><td>調整範圍</td><td>整張畫面一起調</td><td>只調畫面裡框選出來、或用顏色/亮度篩選出來的某一塊</td></tr>
@@ -13,7 +13,7 @@
 </table></div>
 <p><span class="src s-gen">通用知識</span> 沒做過一級調色就直接跳二級,常見的問題是「整體還是灰的,但天空被我調得很藍」——局部調整的效果會被沒調好的整體基準蓋過去,存在感很弱。一級永遠先做。</p>
 
-<h3>怎麼框選出「一塊」:Power Windows</h3>
+<h3 id="s-f0230a">怎麼框選出「一塊」:Power Windows</h3>
 <p>Power Windows 是調色軟體裡最常見的局部選取工具,用形狀(圓形、方形、多邊形、漸層)畫出一個範圍,範圍裡的畫面套用你設定的調整,範圍外不受影響 <span class="src s-gen">通用知識</span>。影片素材裡,這個形狀還可以設定跟著畫面裡的主體移動(追蹤),不用每一格畫面重新畫一次。</p>
 <figure>
 <svg viewBox="0 0 560 240" role="img" aria-label="Power Window 示意:用形狀圈出天空區域,只對圈選範圍做調整">
@@ -31,7 +31,7 @@
 <figcaption>橘色虛線框住的橢圓形範圍是一個 Power Window——只有落在框裡的天空會套用這個節點設定的調整(例如加深藍色、壓低亮度),框外的地面跟樹木完全不受影響,即使它們在同一個畫面裡。</figcaption>
 </figure>
 
-<h3>另一種框選方式:用顏色或亮度篩選(Qualifier)</h3>
+<h3 id="s-800683">另一種框選方式:用顏色或亮度篩選(Qualifier)</h3>
 <p>Power Windows 是「畫形狀」框選,Qualifier(色彩/亮度篩選器)則是「指定一個顏色或亮度範圍」,軟體自動把畫面裡符合的像素都選出來,不管它們在畫面的哪個位置 <span class="src s-gen">通用知識</span>。想只調某一種特定顏色(例如只讓某件衣服的紅色更飽和,其他紅色不受影響)時,篩選器比手畫形狀更精準。</p>
 
 <div class="box tip">
