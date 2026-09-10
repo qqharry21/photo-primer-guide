@@ -70,11 +70,12 @@ main a:focus-visible{outline:2px solid var(--af);outline-offset:2px}
   border-bottom:1px solid #000}
 #globalHeader .ghmk{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:#CFD3D6;
   text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-#themeBtn{flex:0 0 auto;background:none;border:1px solid #454B50;color:#fff;border-radius:7px;
+.ghActions{display:flex;align-items:center;gap:8px;flex:0 0 auto}
+.ghIconBtn{flex:0 0 auto;background:none;border:1px solid #454B50;color:#fff;border-radius:7px;
   width:32px;height:32px;display:flex;align-items:center;justify-content:center;
   font-size:15px;cursor:pointer;line-height:1}
-#themeBtn:hover{border-color:#6E767C}
-#themeBtn:focus-visible{outline:2px solid var(--afline);outline-offset:2px}
+.ghIconBtn:hover{border-color:#6E767C}
+.ghIconBtn:focus-visible{outline:2px solid var(--afline);outline-offset:2px}
 
 /* ---------- NAV ---------- */
 #nav{position:fixed;inset:calc(44px + env(safe-area-inset-top)) auto 0 0;width:268px;
@@ -87,10 +88,16 @@ main a:focus-visible{outline:2px solid var(--af);outline-offset:2px}
 .brand p{margin:0;font-size:11.5px;color:#8C9399;line-height:1.6}
 #chapters{list-style:none;margin:0;padding:10px 0 60px;
   flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain}
-#chapters li{margin:0}
+#chapters li{margin:0;position:relative}
 #chapters button{width:100%;display:flex;gap:11px;align-items:baseline;background:none;border:0;
-  color:#A9AFB4;font-family:var(--sans);font-size:13.5px;text-align:left;padding:9px 20px;cursor:pointer;
+  color:#A9AFB4;font-family:var(--sans);font-size:13.5px;text-align:left;padding:9px 40px 9px 20px;cursor:pointer;
   position:relative;line-height:1.5}
+.favch{position:absolute;right:6px;top:50%;transform:translateY(-50%);z-index:1;
+  background:none;border:0;color:#6E767C;font-size:16px;line-height:1;cursor:pointer;
+  width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:6px}
+.favch:hover{color:#CFD3D6;background:#2A2E32}
+.favch.on{color:var(--afline)}
+.favch:focus-visible{outline:2px solid var(--afline);outline-offset:1px}
 #chapters button:hover{color:#fff;background:#1C1F22}
 #chapters button:focus-visible{outline:2px solid var(--afline);outline-offset:-2px}
 #chapters .n{font-family:var(--mono);font-size:11px;color:#5C6266;flex:0 0 20px}
@@ -143,7 +150,13 @@ main{margin-left:268px;margin-top:calc(44px + env(safe-area-inset-top));padding:
 h2.ch{font-size:31px;font-weight:900;line-height:1.28;margin:38px 0 6px;letter-spacing:-.01em}
 .sub{color:var(--muted);font-size:14.5px;margin:0 0 30px}
 h3{font-size:20px;font-weight:900;margin:44px 0 12px;line-height:1.4;
-  padding-top:16px;border-top:2px solid var(--rule)}
+  padding-top:16px;padding-right:36px;border-top:2px solid var(--rule);position:relative}
+.favh3{position:absolute;top:14px;right:0;background:none;border:0;color:var(--muted);
+  font-size:17px;line-height:1;cursor:pointer;width:28px;height:28px;
+  display:flex;align-items:center;justify-content:center;border-radius:6px;vertical-align:middle}
+.favh3:hover{background:var(--th-bg)}
+.favh3.on{color:var(--amber)}
+.favh3:focus-visible{outline:2px solid var(--af);outline-offset:1px}
 h4{font-size:16px;font-weight:700;margin:26px 0 8px}
 p{margin:0 0 15px}
 ul,ol{margin:0 0 15px;padding-left:1.4em}
@@ -264,6 +277,58 @@ mark.hit{background:rgba(55,201,122,.34);color:inherit;border-radius:2px;
 #toast button{background:var(--afline);border:0;border-radius:5px;color:#052411;font-weight:700;
   font-family:var(--sans);font-size:12.5px;padding:6px 11px;cursor:pointer;flex:0 0 auto}
 
+/* ---------- 收藏面板(從 global header 叫出的浮動抽屜) ---------- */
+#favScrim{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:95}
+#favScrim[hidden]{display:none!important}
+#favPanel{position:fixed;top:0;right:0;bottom:0;width:min(380px,92vw);z-index:96;
+  background:var(--card);color:var(--text);border-left:1px solid var(--hair);
+  box-shadow:-16px 0 48px rgba(0,0,0,.3);display:flex;flex-direction:column;
+  padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}
+#favPanel[hidden]{display:none!important}
+.favHead{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:16px 18px;border-bottom:1px solid var(--hair);flex:0 0 auto}
+.favHead b{font-size:16px}
+#favClose{background:none;border:1px solid var(--hair);color:var(--text);border-radius:6px;
+  width:30px;height:30px;cursor:pointer;font-size:14px;line-height:1}
+#favClose:hover{border-color:var(--rule)}
+.favSync{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:10px 18px;border-bottom:1px solid var(--hair);flex:0 0 auto;
+  font-size:12px;color:var(--muted)}
+#favSyncBtn{background:none;border:1px solid var(--hair);color:var(--text);border-radius:5px;
+  padding:4px 9px;font-size:11.5px;cursor:pointer;flex:0 0 auto}
+#favSyncBtn:hover{border-color:var(--rule)}
+.favFilters{display:flex;gap:8px;padding:12px 18px;border-bottom:1px solid var(--hair);flex:0 0 auto}
+.favFilters select{flex:1;min-width:0;background:var(--card);border:1px solid var(--hair);
+  color:var(--text);border-radius:5px;padding:7px 9px;font-family:var(--sans);font-size:12.5px}
+#favList{flex:1 1 auto;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.favRow{display:flex;align-items:center;gap:4px;border-bottom:1px solid var(--hair)}
+.favRowMain{flex:1;min-width:0;display:block;text-align:left;background:none;border:0;
+  cursor:pointer;padding:12px 6px 12px 18px;color:var(--text);font-family:var(--sans)}
+.favRowMain:hover{background:var(--th-bg)}
+.favRowTab{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;
+  background:var(--chip-bg);color:var(--chip-fg);padding:1px 6px;border-radius:3px;margin-bottom:5px}
+.favRowTitle{display:block;font-size:14px;font-weight:700;line-height:1.5;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.favRowSub{display:block;font-size:11.5px;color:var(--muted);margin-top:2px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.favRowDel{flex:0 0 auto;background:none;border:0;color:var(--muted);cursor:pointer;
+  width:36px;height:36px;margin-right:6px;border-radius:6px;font-size:13px}
+.favRowDel:hover{color:var(--warn);background:var(--th-bg)}
+.favEmpty{padding:26px 18px;color:var(--muted);font-size:13px;line-height:1.8}
+#favSettings{flex:0 0 auto;border-top:1px solid var(--hair)}
+#favSettings summary{padding:12px 18px;cursor:pointer;font-size:12.5px;color:var(--muted);
+  font-family:var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.favSetBody{padding:4px 18px 16px;display:flex;flex-direction:column;gap:10px}
+.favSetBody label{display:block;font-size:12px;color:var(--muted)}
+.favSetBody input{width:100%;margin-top:5px;background:var(--paper);border:1px solid var(--hair);
+  color:var(--text);border-radius:5px;padding:8px 10px;font-family:var(--mono);font-size:12.5px}
+.favSetBtns{display:flex;gap:8px;flex-wrap:wrap}
+.favSetBtns button{background:none;border:1px solid var(--hair);color:var(--text);border-radius:5px;
+  padding:7px 11px;font-size:12px;cursor:pointer;font-family:var(--sans)}
+.favSetBtns button:hover{border-color:var(--rule)}
+.favHint{font-size:11.5px;color:var(--muted);margin:0;line-height:1.6}
+@media(max-width:420px){#favPanel{width:100vw}}
+
 /* 配方卡 */
 .rc{background:var(--card);border:1px solid var(--hair);border-top:3px solid var(--rule);
   margin:0 0 26px;border-radius:2px;overflow:hidden}
@@ -381,7 +446,8 @@ mark.hit{background:rgba(55,201,122,.34);color:inherit;border-radius:2px;
   .pager button,#chapters button,.skchip{min-height:44px}
 }
 @media print{
-  #globalHeader,#nav,#bar,#sk,#toast,.pager,.osd{display:none!important}
+  #globalHeader,#nav,#bar,#sk,#toast,#favPanel,#favScrim,.pager,.osd{display:none!important}
+  .favh3{display:none!important}
   main{margin:0}
   #main>section{display:block!important;page-break-after:always}
   /* 互動章節:隱藏操作介面,把所有答案卡平鋪印出 */
@@ -394,7 +460,10 @@ mark.hit{background:rgba(55,201,122,.34);color:inherit;border-radius:2px;
 
 <div id="globalHeader">
   <span class="ghmk">攝影教學技巧指南</span>
-  <button id="themeBtn" type="button" aria-label="顯示:自動">◐</button>
+  <div class="ghActions">
+    <button id="favBtn" class="ghIconBtn" type="button" aria-label="開啟收藏清單">☆</button>
+    <button id="themeBtn" class="ghIconBtn" type="button" aria-label="顯示:自動">◐</button>
+  </div>
 </div>
 
 <div id="bar">
@@ -418,6 +487,44 @@ mark.hit{background:rgba(55,201,122,.34);color:inherit;border-radius:2px;
 
 <div id="toast" hidden><span id="toastMsg"></span><button id="toastBtn" type="button">重新載入</button></div>
 
+<div id="favScrim" hidden></div>
+<div id="favPanel" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-label="收藏清單">
+  <div class="favHead">
+    <b>收藏</b>
+    <button id="favClose" type="button" aria-label="關閉收藏面板">✕</button>
+  </div>
+  <div class="favSync">
+    <span id="favSyncText">尚未設定同步</span>
+    <button id="favSyncBtn" type="button">立即同步</button>
+  </div>
+  <div class="favFilters">
+    <select id="favFilterTab" aria-label="依分頁篩選"><option value="">全部分頁</option></select>
+    <select id="favFilterType" aria-label="依類型篩選">
+      <option value="">全部類型</option>
+      <option value="chapter">整章</option>
+      <option value="section">段落</option>
+    </select>
+  </div>
+  <div id="favList"></div>
+  <details id="favSettings">
+    <summary>同步設定(跨裝置)</summary>
+    <div class="favSetBody">
+      <label>GitHub Token(僅需 gist 權限)
+        <input id="favPat" type="password" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="ghp_… 或 github_pat_…">
+      </label>
+      <label>Gist ID
+        <input id="favGistId" type="text" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="貼上既有 Gist ID,或按右邊建立新的">
+      </label>
+      <div class="favSetBtns">
+        <button id="favSaveCred" type="button">儲存並同步</button>
+        <button id="favCreateGist" type="button">建立新 Gist</button>
+        <button id="favClearCred" type="button">清除設定</button>
+      </div>
+      <p id="favSetHint" class="favHint"></p>
+    </div>
+  </details>
+</div>
+
 <nav id="nav" aria-label="章節">
   <div class="brand">
     <div class="mk" id="brandMk">攝影教學技巧指南</div>
@@ -435,6 +542,7 @@ mark.hit{background:rgba(55,201,122,.34);color:inherit;border-radius:2px;
 
 <main id="main"><div class="wrap"><p class="sub" style="padding-top:40px">載入中…</p></div></main>
 
+<script src="./favorites.js"></script>
 <script>
 (function(){
   var nav  = document.getElementById('nav');
@@ -513,7 +621,14 @@ mark.hit{background:rgba(55,201,122,.34);color:inherit;border-radius:2px;
       b.type = 'button';
       b.innerHTML = '<span class="n">' + String(i).padStart(2,'0') + '</span><span>' + s.getAttribute('data-t') + '</span>';
       b.addEventListener('click', function(){ show(i, true); });
-      li.appendChild(b); list.appendChild(li); navBtns.push(b);
+      li.appendChild(b);
+      var fb = document.createElement('button');
+      fb.type = 'button'; fb.className = 'favch';
+      fb.setAttribute('data-tab', activeTab.id);
+      fb.setAttribute('data-file', files[i]);
+      fb.setAttribute('data-title', s.getAttribute('data-t'));
+      li.appendChild(fb);
+      list.appendChild(li); navBtns.push(b);
 
       /* 章節底部前後導覽(僅限同一分頁內) */
       var p = document.createElement('div');
@@ -550,7 +665,26 @@ mark.hit{background:rgba(55,201,122,.34);color:inherit;border-radius:2px;
     close();
   }
 
-  function loadTab(tabId, filename, push){
+  function decorateSections(){
+    secs.forEach(function(sec, i){
+      var file = files[i];
+      var chapterTitle = sec.getAttribute('data-t');
+      Array.prototype.forEach.call(sec.querySelectorAll('h3[id^="s-"]'), function(h3){
+        if (h3.querySelector('.favh3')) { return; } // 保險:避免重複注入
+        var sectionTitle = h3.textContent;
+        var btn = document.createElement('button');
+        btn.type = 'button'; btn.className = 'favh3';
+        btn.setAttribute('data-tab', activeTab.id);
+        btn.setAttribute('data-file', file);
+        btn.setAttribute('data-section', h3.id);
+        btn.setAttribute('data-chapter-title', chapterTitle);
+        btn.setAttribute('data-section-title', sectionTitle);
+        h3.appendChild(btn);
+      });
+    });
+  }
+
+  function loadTab(tabId, filename, push, cb){
     var tab = null;
     for (var k = 0; k < TABS.length; k++){ if (TABS[k].id === tabId){ tab = TABS[k]; break; } }
     if (!tab) { tab = TABS[0]; }
@@ -587,8 +721,10 @@ mark.hit{background:rgba(55,201,122,.34);color:inherit;border-radius:2px;
       markActiveTabBtn();
 
       buildNav();
+      decorateSections();
       buildIndex();
       bindDx();
+      if (window.Fav) { refreshFavUI(); }
 
       var idx = 0;
       if (filename){
@@ -596,6 +732,7 @@ mark.hit{background:rgba(55,201,122,.34);color:inherit;border-radius:2px;
         if (fi >= 0) { idx = fi; }
       }
       show(idx, push);
+      if (cb) { cb(); }
     }).catch(function(){
       if (myGen !== loadGen) { return; }
       main.innerHTML = '<div class="wrap"><p class="sub" style="padding-top:40px">載入失敗,請檢查網路連線後重新整理。</p></div>';
@@ -605,6 +742,7 @@ mark.hit{background:rgba(55,201,122,.34);color:inherit;border-radius:2px;
   fetch('./tabs.json').then(function(r){ return r.json(); }).then(function(tabs){
     TABS = tabs;
     renderTabBar();
+    if (window.Fav) { renderFavFilterTabs(); }
     var h = parseHash();
     var wantTab = (h && TABS.some(function(t){ return t.id === h.tab; })) ? h.tab : TABS[0].id;
     var wantFile = (h && h.tab === wantTab) ? h.file : null;
@@ -650,6 +788,190 @@ mark.hit{background:rgba(55,201,122,.34);color:inherit;border-radius:2px;
   }
   themeBtn.addEventListener('click', function(){ ti=(ti+1)%THEMES.length; paint(); });
   paint();
+
+  /* ============================================================
+     收藏功能(favorites.js 管資料,這裡只管 UI)
+     h3 小節收藏跟側邊欄整章收藏的 icon 都是動態注入的按鈕,靠事件
+     委派(委派到 main / list / favList 這幾個不會被整個換掉的容器)
+     來處理點擊,不需要在每次切章節時重新綁定。
+     ============================================================ */
+  var favBtn = document.getElementById('favBtn');
+  var favPanel = document.getElementById('favPanel');
+  var favScrim = document.getElementById('favScrim');
+  var favClose = document.getElementById('favClose');
+  var favSyncText = document.getElementById('favSyncText');
+  var favSyncBtn = document.getElementById('favSyncBtn');
+  var favFilterTab = document.getElementById('favFilterTab');
+  var favFilterType = document.getElementById('favFilterType');
+  var favList = document.getElementById('favList');
+  var favPat = document.getElementById('favPat');
+  var favGistId = document.getElementById('favGistId');
+  var favSaveCred = document.getElementById('favSaveCred');
+  var favCreateGist = document.getElementById('favCreateGist');
+  var favClearCred = document.getElementById('favClearCred');
+  var favSetHint = document.getElementById('favSetHint');
+
+  function tabLabel(id){
+    for (var k = 0; k < TABS.length; k++){ if (TABS[k].id === id){ return TABS[k].label; } }
+    return id;
+  }
+  function renderFavFilterTabs(){
+    favFilterTab.innerHTML = '<option value="">全部分頁</option>' + TABS.map(function(t){
+      return '<option value="' + esc(t.id) + '">' + esc(t.label) + '</option>';
+    }).join('');
+  }
+  function favSyncStatusText(){
+    var st = Fav.getStatus();
+    if (st.state === 'unconfigured') { return '尚未設定同步(見下方「同步設定」)'; }
+    if (st.state === 'syncing') { return '同步中…'; }
+    if (st.state === 'offline') { return '離線' + (st.dirty ? '(有未同步的變更,恢復連線後自動補送)' : ''); }
+    if (st.state === 'error') { return '同步失敗:' + (st.error || '未知錯誤'); }
+    return '上次同步:' + Fav.formatRelative(Fav.getLastSyncedAt()) + (st.dirty ? '(有未同步的變更)' : '');
+  }
+  function favFilteredList(){
+    var items = Fav.list();
+    var tab = favFilterTab.value, type = favFilterType.value;
+    return items.filter(function(it){
+      if (tab && it.tab !== tab) { return false; }
+      if (type && it.type !== type) { return false; }
+      return true;
+    });
+  }
+  function renderFavPanel(){
+    favSyncText.textContent = favSyncStatusText();
+    var items = favFilteredList();
+    if (!items.length){
+      favList.innerHTML = '<p class="favEmpty">還沒有收藏。點章節旁,或章節內小節標題旁的 ☆ 開始收藏。</p>';
+      return;
+    }
+    favList.innerHTML = items.map(function(it){
+      var title = it.type === 'section' ? (it.sectionTitle || '') : (it.chapterTitle || '');
+      var sub = it.type === 'section' ? ('所屬:' + (it.chapterTitle || '')) : '';
+      return '<div class="favRow">' +
+        '<button type="button" class="favRowMain" data-key="' + esc(it.key) + '">' +
+          '<span class="favRowTab">' + esc(tabLabel(it.tab)) + '</span>' +
+          '<span class="favRowTitle">' + esc(title) + '</span>' +
+          (sub ? '<span class="favRowSub">' + esc(sub) + '</span>' : '') +
+        '</button>' +
+        '<button type="button" class="favRowDel" data-key="' + esc(it.key) + '" aria-label="刪除這筆收藏">✕</button>' +
+      '</div>';
+    }).join('');
+  }
+  function refreshFavUI(){
+    Array.prototype.forEach.call(document.querySelectorAll('.favh3'), function(b){
+      var on = Fav.isSectionFav(b.getAttribute('data-tab'), b.getAttribute('data-file'), b.getAttribute('data-section'));
+      b.textContent = on ? '★' : '☆';
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      b.setAttribute('aria-label', on ? '取消收藏這個小節' : '收藏這個小節');
+      b.classList.toggle('on', on);
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('.favch'), function(b){
+      var on = Fav.isChapterFav(b.getAttribute('data-tab'), b.getAttribute('data-file'));
+      b.textContent = on ? '★' : '☆';
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      b.setAttribute('aria-label', on ? '取消收藏本章' : '收藏本章');
+      b.classList.toggle('on', on);
+    });
+    renderFavPanel();
+  }
+
+  function navigateToFavItem(item){
+    closeFavPanel();
+    function afterShow(){
+      if (item.type === 'section' && item.sectionId){
+        setTimeout(function(){
+          var el = document.getElementById(item.sectionId);
+          if (el && el.scrollIntoView) { el.scrollIntoView({ block: 'start' }); }
+        }, 60);
+      }
+    }
+    if (activeTab && activeTab.id === item.tab){
+      var idx = files.indexOf(item.file);
+      if (idx >= 0){ show(idx, true); afterShow(); return; }
+    }
+    loadTab(item.tab, item.file, true, afterShow);
+  }
+
+  function fillCredFields(){
+    favPat.value = Fav.getPat();
+    favGistId.value = Fav.getGistId();
+  }
+  function openFavPanel(){
+    favPanel.hidden = false; favScrim.hidden = false;
+    favPanel.setAttribute('aria-hidden', 'false');
+    fillCredFields();
+    renderFavPanel();
+    document.body.style.overflow = 'hidden';
+  }
+  function closeFavPanel(){
+    favPanel.hidden = true; favScrim.hidden = true;
+    favPanel.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  favBtn.addEventListener('click', function(){ favPanel.hidden ? openFavPanel() : closeFavPanel(); });
+  favClose.addEventListener('click', closeFavPanel);
+  favScrim.addEventListener('click', closeFavPanel);
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !favPanel.hidden) { closeFavPanel(); } });
+
+  favFilterTab.addEventListener('change', renderFavPanel);
+  favFilterType.addEventListener('change', renderFavPanel);
+
+  main.addEventListener('click', function(e){
+    var b = e.target.closest('.favh3');
+    if (!b) { return; }
+    e.preventDefault();
+    Fav.toggleSection(
+      b.getAttribute('data-tab'), b.getAttribute('data-file'), b.getAttribute('data-section'),
+      b.getAttribute('data-chapter-title'), b.getAttribute('data-section-title')
+    );
+  });
+  list.addEventListener('click', function(e){
+    var b = e.target.closest('.favch');
+    if (!b) { return; }
+    e.preventDefault(); e.stopPropagation();
+    Fav.toggleChapter(b.getAttribute('data-tab'), b.getAttribute('data-file'), b.getAttribute('data-title'));
+  });
+  favList.addEventListener('click', function(e){
+    var del = e.target.closest('.favRowDel');
+    if (del){ Fav.removeByKey(del.getAttribute('data-key')); return; }
+    var m = e.target.closest('.favRowMain');
+    if (m){
+      var key = m.getAttribute('data-key');
+      var item = Fav.list().filter(function(it){ return it.key === key; })[0];
+      if (item){ navigateToFavItem(item); }
+    }
+  });
+
+  favSyncBtn.addEventListener('click', function(){ Fav.syncNow().catch(function(){}); });
+  favSaveCred.addEventListener('click', function(){
+    var pat = favPat.value.trim(), gid = favGistId.value.trim();
+    if (!pat || !gid){ favSetHint.textContent = '請輸入 Token 與 Gist ID'; return; }
+    Fav.setCredentials(pat, gid);
+    favSetHint.textContent = '已儲存,正在同步…';
+    Fav.syncNow().then(function(){ favSetHint.textContent = '同步成功'; })
+      .catch(function(err){ favSetHint.textContent = (err && err.message) || '同步失敗'; });
+  });
+  favCreateGist.addEventListener('click', function(){
+    var pat = favPat.value.trim();
+    if (!pat){ favSetHint.textContent = '請先輸入 Token'; return; }
+    favSetHint.textContent = '建立中…';
+    Fav.createGist(pat).then(function(id){
+      favGistId.value = id;
+      Fav.setCredentials(pat, id);
+      favSetHint.textContent = '已建立新 Gist,ID:' + id + '(記得複製到其他裝置貼上同一組 Token + 這個 ID)';
+    }).catch(function(err){ favSetHint.textContent = (err && err.message) || '建立失敗'; });
+  });
+  favClearCred.addEventListener('click', function(){
+    Fav.clearCredentials();
+    favPat.value = ''; favGistId.value = '';
+    favSetHint.textContent = '已清除同步設定(本機收藏資料仍保留)';
+  });
+
+  if (window.Fav){
+    Fav.onChange(refreshFavUI);
+    Fav.init();
+  }
 
 
   /* ============================================================

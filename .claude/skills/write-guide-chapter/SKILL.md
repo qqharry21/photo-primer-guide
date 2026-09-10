@@ -131,6 +131,34 @@ you're in:**
   older griv chapters are historical leftovers from before that became
   automatic, not something to replicate.
 
+### Every `<h3>` needs a stable bookmark id
+
+The site has a favorites feature that lets a reader bookmark an individual
+`<h3>` section, not just a whole chapter. That only works if the section
+has a **stable, unique `id`** — so every `<h3>` you write, in any tab, must
+be `<h3 id="s-xxxxxx">...</h3>` where `xxxxxx` is a 6-character lowercase
+hex string you make up on the spot (anything unique works — mash the
+keyboard, or use the first 6 hex chars of `date +%s%N | sha1sum`). It does
+**not** need to be a "real" hash or follow any derivation scheme — it just
+needs to (a) start with `s-`, (b) be unique across the whole site, and (c)
+never change once published, since a reader's bookmark points at that exact
+id.
+
+- Don't reuse an id from another chapter — check `grep -rho 'id="s-[a-f0-9]*"'
+  content/*/chapters/*.html | sort | uniq -d` to confirm no collisions if
+  you're ever unsure.
+- If you rewrite a section's content so substantially that a bookmark
+  pointing at the old id would now be misleading, **change the id** —
+  that's the intended signal (the favorites UI treats a missing id as "this
+  bookmarked content no longer exists" rather than silently pointing at the
+  wrong thing). A wording tweak or typo fix doesn't warrant a new id; a
+  rewrite that changes what the section is about does.
+- If you ever forget this and commit a plain `<h3>` with no id, running
+  `python3 scripts/add_h3_ids.py` from the repo root will backfill ids for
+  every `<h3>` missing one (it never touches ones that already have an id),
+  so nothing is unrecoverable — but doing it right the first time means one
+  less thing to remember at commit time.
+
 ## Step 3: body content components
 
 Pull these verbatim — they're the site's actual CSS hooks, not suggestions:
@@ -246,5 +274,6 @@ generic "這裡".
    chapter to point to.
 6. Bump `VERSION` in `sw.js`.
 7. Sanity-check before considering it done: open the file and confirm every
-   `<section>`/`<div>`/`<table>`/`<svg>` tag you added is balanced, and that
+   `<section>`/`<div>`/`<table>`/`<svg>` tag you added is balanced, that
+   every `<h3>` has a unique `id="s-xxxxxx"` (Step 2), and that
    `manifest.json` still parses as valid JSON.

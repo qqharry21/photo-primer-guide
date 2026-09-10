@@ -1,15 +1,20 @@
 /* 攝影教學技巧指南 — Service Worker
-   改了任何 .html / .json 內容檔(index.html、caption.html、tabs.json、
-   每個分頁的 manifest.json、每個分頁 chapters 資料夾裡的章節檔案)之後,
-   一定要把 VERSION 加一,使用者下次開啟才會拿到新版,不然會一直被
-   cache-first 的 RUNTIME 快取卡在舊內容。 */
-const VERSION   = 'gr4-v20';
+   改了任何 .html / .json 內容檔(index.html、favorites.js、caption.html、
+   tabs.json、每個分頁的 manifest.json、每個分頁 chapters 資料夾裡的章節檔案)
+   之後,一定要把 VERSION 加一,使用者下次開啟才會拿到新版,不然會一直被
+   cache-first 的 RUNTIME 快取卡在舊內容。
+
+   注意:收藏功能的資料存在 localStorage,跟這裡的 Cache API 快取是完全
+   分開的儲存機制——version 升版、甚至清掉 RUNTIME/CORE 快取,都不會動到
+   使用者的收藏資料。 */
+const VERSION   = 'gr4-v21';
 const CORE      = VERSION + '-core';
 const RUNTIME   = VERSION + '-runtime';
 
 const CORE_FILES = [
   './',
   './index.html',
+  './favorites.js',
   './caption.html',
   './manifest.webmanifest',
   './icon-192.png',
