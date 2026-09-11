@@ -88,16 +88,16 @@ main a:focus-visible{outline:2px solid var(--af);outline-offset:2px}
 .brand p{margin:0;font-size:11.5px;color:#8C9399;line-height:1.6}
 #chapters{list-style:none;margin:0;padding:10px 0 60px;
   flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain}
-#chapters li{margin:0;position:relative}
-#chapters button{width:100%;display:flex;gap:11px;align-items:baseline;background:none;border:0;
-  color:#A9AFB4;font-family:var(--sans);font-size:13.5px;text-align:left;padding:9px 40px 9px 20px;cursor:pointer;
+#chapters li{margin:0;display:flex;align-items:center}
+#chapters button{flex:1 1 auto;min-width:0;display:flex;gap:11px;align-items:baseline;background:none;border:0;
+  color:#A9AFB4;font-family:var(--sans);font-size:13.5px;text-align:left;padding:9px 8px 9px 20px;cursor:pointer;
   position:relative;line-height:1.5}
-.favch{position:absolute;right:6px;top:50%;transform:translateY(-50%);z-index:1;
+#chapters button.favch{flex:0 0 28px;margin-right:8px;padding:0;
   background:none;border:0;color:#6E767C;font-size:16px;line-height:1;cursor:pointer;
   width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:6px}
-.favch:hover{color:#CFD3D6;background:#2A2E32}
-.favch.on{color:var(--afline)}
-.favch:focus-visible{outline:2px solid var(--afline);outline-offset:1px}
+#chapters button.favch:hover{color:#CFD3D6;background:#2A2E32}
+#chapters button.favch.on{color:var(--afline)}
+#chapters button.favch:focus-visible{outline:2px solid var(--afline);outline-offset:1px}
 #chapters button:hover{color:#fff;background:#1C1F22}
 #chapters button:focus-visible{outline:2px solid var(--afline);outline-offset:-2px}
 #chapters .n{font-family:var(--mono);font-size:11px;color:#5C6266;flex:0 0 20px}
