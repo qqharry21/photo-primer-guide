@@ -159,6 +159,27 @@ id.
   so nothing is unrecoverable — but doing it right the first time means one
   less thing to remember at commit time.
 
+## Step 2.5: every chapter opens with a TL;DR box
+
+Right after `<p class="sub">`, before any other body content, every chapter
+gets a `重點摘要` box so a reader can absorb the gist before committing to the
+full read:
+
+```html
+<div class="box tldr">
+<span class="lbl">重點摘要</span>
+<ul>
+<li>3-5 條,每條一句話講完一個重點,不是章節大綱的複述</li>
+<li>寫「這章告訴你什麼結論/怎麼做」,不是「這章有哪些小節」</li>
+<li>看完這幾條,讀者大致知道全章在講什麼,要不要往下細讀</li>
+</ul>
+</div>
+```
+
+Write the bullets last, after the rest of the chapter is drafted — a good
+summary comes from condensing what you actually wrote, not from outlining
+what you're about to write. Keep each bullet to one line; 3-5 bullets total.
+
 ## Step 3: body content components
 
 Pull these verbatim — they're the site's actual CSS hooks, not suggestions:
@@ -262,8 +283,8 @@ generic "這裡".
 1. Decide the tab (Step 0).
 2. Pick the next unused number prefix in that tab's `chapters/` folder;
    name the file `NN-slug.html`.
-3. Write the file using the template (Step 2) and components (Step 3),
-   citing sources correctly (Step 4).
+3. Write the file using the template (Step 2), the TL;DR box (Step 2.5) and
+   components (Step 3), citing sources correctly (Step 4).
 4. Add the filename to that tab's `manifest.json` `files` array, at the
    position matching intended reading order.
 5. Add cross-links: from this chapter to any existing chapter it mentions,
