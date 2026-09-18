@@ -182,8 +182,12 @@ code,.m{font-family:var(--mono);font-size:.88em;background:var(--code-bg);paddin
 .box.warn{border-left:4px solid var(--warn)}
 .box.tip{border-left:4px solid var(--af)}
 .box.note{border-left:4px solid var(--amber)}
+.box.tldr{border-left:4px solid var(--tip)}
 .box .lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
   color:var(--muted);display:block;margin-bottom:8px}
+.box.tldr ul{margin:0;padding-left:20px}
+.box.tldr li{margin-bottom:4px}
+.box.tldr li:last-child{margin-bottom:0}
 
 /* 操作步驟 */
 .steps{counter-reset:s;list-style:none;padding:0;margin:0 0 22px}
@@ -543,6 +547,7 @@ mark.hit{background:rgba(55,201,122,.34);color:inherit;border-radius:2px;
 <main id="main"><div class="wrap"><p class="sub" style="padding-top:40px">載入中…</p></div></main>
 
 <script src="./favorites.js"></script>
+<script src="./progress.js"></script>
 <script>
 (function(){
   var nav  = document.getElementById('nav');
@@ -576,6 +581,7 @@ mark.hit{background:rgba(55,201,122,.34);color:inherit;border-radius:2px;
   var secs = [];          // 目前分頁已注入 DOM 的 <section> 陣列
   var navBtns = [];
   var loadGen = 0;        // 防止分頁快速切換時,舊的 fetch 結果蓋掉新的
+  var curIdx = -1;        // 目前顯示的章節在 secs/files 裡的索引,給閱讀進度記錄用
 
   function parseHash(){
     var m = (location.hash || '').match(/^#([a-z0-9_-]+):(.+)$/i);
@@ -646,8 +652,9 @@ mark.hit{background:rgba(55,201,122,.34);color:inherit;border-radius:2px;
     });
   }
 
-  function show(i, push){
+  function show(i, push, skipResume){
     if (!secs[i]) { return; }
+    saveReadingPosition(); // 離開目前章節前,先把捲動位置記下來
     secs.forEach(function(s, j){ s.classList.toggle('on', j === i); });
     navBtns.forEach(function(b, j){ b.setAttribute('aria-current', j === i ? 'true' : 'false'); });
     if (manifest && manifest.tool){
@@ -663,6 +670,54 @@ mark.hit{background:rgba(55,201,122,.34);color:inherit;border-radius:2px;
     }
     window.scrollTo(0, 0);
     close();
+    curIdx = i;
+    if (!skipResume) { maybeResume(activeTab.id, files[i]); }
+  }
+
+  /* ============================================================
+     閱讀進度(progress.js 管資料,這裡只管「讀到哪裡」的偵測跟回跳)
+     用捲動位置估算「目前讀到哪個小節」,debounce 後記錄;重新打開同一
+     章節,或整站沒帶 hash 冷啟動時,自動跳回上次讀到的地方。
+     ============================================================ */
+  var RESUME_SCROLL_THRESHOLD = 140; // px,略高於頂列 + 行動版 sticky bar 的高度
+  function currentSectionEl(){
+    if (curIdx < 0 || !secs[curIdx]) { return null; }
+    var hs = secs[curIdx].querySelectorAll('h3[id^="s-"]');
+    var best = null;
+    for (var i = 0; i < hs.length; i++){
+      if (hs[i].getBoundingClientRect().top <= RESUME_SCROLL_THRESHOLD) { best = hs[i]; }
+      else { break; }
+    }
+    return best;
+  }
+  function saveReadingPosition(){
+    if (!activeTab || curIdx < 0 || !secs[curIdx] || !window.Progress) { return; }
+    var sec = secs[curIdx];
+    var h3 = currentSectionEl();
+    Progress.record(
+      activeTab.id, files[curIdx], sec.getAttribute('data-t'),
+      h3 ? h3.id : null, h3 ? h3.textContent : null
+    );
+  }
+  var scrollSaveTimer = null;
+  window.addEventListener('scroll', function(){
+    if (scrollSaveTimer) { clearTimeout(scrollSaveTimer); }
+    scrollSaveTimer = setTimeout(saveReadingPosition, 700);
+  }, { passive: true });
+  document.addEventListener('visibilitychange', function(){
+    if (document.visibilityState === 'hidden') { saveReadingPosition(); }
+  });
+  window.addEventListener('beforeunload', saveReadingPosition);
+
+  function maybeResume(tab, file){
+    if (!window.Progress) { return; }
+    var pos = Progress.getPosition(tab, file);
+    if (pos && pos.sectionId){
+      setTimeout(function(){
+        var el = document.getElementById(pos.sectionId);
+        if (el && el.scrollIntoView) { el.scrollIntoView({ block: 'start' }); }
+      }, 60);
+    }
   }
 
   function decorateSections(){
@@ -731,7 +786,7 @@ mark.hit{background:rgba(55,201,122,.34);color:inherit;border-radius:2px;
         var fi = files.indexOf(filename);
         if (fi >= 0) { idx = fi; }
       }
-      show(idx, push);
+      show(idx, push, !!cb);
       if (cb) { cb(); }
     }).catch(function(){
       if (myGen !== loadGen) { return; }
@@ -744,9 +799,19 @@ mark.hit{background:rgba(55,201,122,.34);color:inherit;border-radius:2px;
     renderTabBar();
     if (window.Fav) { renderFavFilterTabs(); }
     var h = parseHash();
-    var wantTab = (h && TABS.some(function(t){ return t.id === h.tab; })) ? h.tab : TABS[0].id;
-    var wantFile = (h && h.tab === wantTab) ? h.file : null;
+    var wantTab, wantFile, resumedCold = false;
+    if (h && TABS.some(function(t){ return t.id === h.tab; })){
+      wantTab = h.tab; wantFile = h.file;
+    } else if (window.Progress) {
+      // 沒帶 hash 冷啟動:如果之前讀到一半,直接接回去,而不是每次都回到第一章
+      var latest = Progress.getLatest();
+      if (latest && TABS.some(function(t){ return t.id === latest.tab; })){
+        wantTab = latest.tab; wantFile = latest.file; resumedCold = true;
+      }
+    }
+    if (!wantTab) { wantTab = TABS[0].id; wantFile = null; }
     loadTab(wantTab, wantFile, false);
+    if (resumedCold) { say('已跳至上次閱讀進度', false); }
   }).catch(function(){
     main.innerHTML = '<div class="wrap"><p class="sub" style="padding-top:40px">載入失敗,請檢查網路連線後重新整理。</p></div>';
   });
@@ -887,7 +952,7 @@ mark.hit{background:rgba(55,201,122,.34);color:inherit;border-radius:2px;
     }
     if (activeTab && activeTab.id === item.tab){
       var idx = files.indexOf(item.file);
-      if (idx >= 0){ show(idx, true); afterShow(); return; }
+      if (idx >= 0){ show(idx, true, true); afterShow(); return; }
     }
     loadTab(item.tab, item.file, true, afterShow);
   }
@@ -972,6 +1037,7 @@ mark.hit{background:rgba(55,201,122,.34);color:inherit;border-radius:2px;
     Fav.onChange(refreshFavUI);
     Fav.init();
   }
+  if (window.Progress){ Progress.init(); }
 
 
   /* ============================================================
