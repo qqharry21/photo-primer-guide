@@ -1,0 +1,91 @@
+<section data-t="RAW 檔與輸出:調色前後的技術步驟" data-g="調色基礎">
+<div class="osd"><span class="hot">進階</span><span class="no"></span></div>
+<div class="wrap">
+<h2 class="ch">RAW 檔與輸出:調色前後的技術步驟</h2>
+<p class="sub">調色是照片後製最有趣的一段,但前面還有 RAW 與校正、後面還有輸出。這兩頭做錯,中間調得再準,到了別人的螢幕上一樣會走樣。</p>
+
+<div class="box tldr">
+<span class="lbl">重點摘要</span>
+<ul>
+<li>RAW 存的是感光元件的原始讀值,白平衡、對比、銳利化都還沒套上去,所以後製空間遠大於 JPEG。</li>
+<li>調色之前先做技術性校正:鏡頭變形與暗角、裁切拉正、去除感光元件髒點——這些做完畫面才定案。</li>
+<li>雜訊抑制與銳利化要放在最後,因為它們的正確用量取決於最終輸出的尺寸。</li>
+<li>輸出給網路一律轉 sRGB;照片在社群上「變淡」幾乎都是色彩空間沒轉造成的。</li>
+<li>沒有校色螢幕也有解:把螢幕亮度調到中等、在多個裝置上互相對照,不要在陽光下修圖。</li>
+</ul>
+</div>
+
+<div class="box note">
+<span class="lbl">這章跟調色章節的分工</span>
+<p><a href="#advanced:03-basic-workflow.html">基礎調色實戰:白平衡到局部微調的四步驟</a>處理的是「怎麼把顏色調對」;這一章處理的是那之前與之後的技術性步驟。順序上,本章前半發生在調色之前,後半發生在調色完成之後。</p>
+</div>
+
+<h3 id="s-a8b364">RAW 到底存了什麼</h3>
+<p><span class="src s-gen">通用知識</span> 相機拍 JPEG 時,機身內部其實做了一整套處理:套用白平衡、套用對比曲線與飽和度、銳利化、壓縮,然後把結果存成 8 bit 的檔案——這些決定<strong>做完就回不去了</strong>。RAW 則是把感光元件的原始讀值直接存起來,那些處理全部留到電腦上由你決定。</p>
+<div class="tw"><table>
+<tr><th></th><th>RAW</th><th>JPEG</th></tr>
+<tr><td>白平衡</td><td>後製時自由改,無損失</td><td>已烘進畫面,勉強能改但會傷畫質</td></tr>
+<tr><td>亮度階調</td><td>通常 12–14 bit,亮部暗部有救援空間</td><td>8 bit,過曝的地方是純白、救不回來</td></tr>
+<tr><td>對比與飽和</td><td>尚未套用,由你決定</td><td>已套用,再調是二次加工</td></tr>
+<tr><td>檔案大小</td><td>大很多</td><td>小</td></tr>
+<tr><td>能不能直接用</td><td>不行,一定要經過後製</td><td>可以直接發</td></tr>
+</table></div>
+<p><span class="src s-mine">本站建議</span> 判斷準則很簡單:<strong>這張照片你打算花時間修嗎?</strong>會修就拍 RAW,不會修就拍 JPEG——拍了 RAW 卻從不打開,只是在燒記憶卡。很多機身支援 RAW+JPEG 同時記錄,是個不錯的過渡做法。機身端的設定見<a href="#griv:14-file-format.html">檔案格式與儲存</a>。</p>
+<div class="box warn">
+<span class="lbl">RAW 救不回來的兩件事</span>
+<p style="margin-bottom:0">RAW 的寬容度常被誇大。實際上<strong>完全過曝(訊號打到頂)的區域沒有任何資料可以救</strong>,暗部大幅提亮則會把雜訊一起放大。所以拍攝時仍然要把曝光拍對,RAW 是保險而不是免死金牌——怎麼在拍攝當下判斷,見<a href="#fund:03-metering-histogram.html">測光與直方圖:相機怎麼「猜」曝光</a>。</p>
+</div>
+
+<h3 id="s-5e02f7">調色之前:先把畫面「定案」</h3>
+<p><span class="src s-mine">本站建議</span> 這些步驟要排在調色前面,因為它們會改變畫面的構圖或整體亮度分布——如果先調好顏色再來裁切,等於白調一次:</p>
+<div class="tw"><table>
+<tr><th>順序</th><th>步驟</th><th>為什麼排在這裡</th></tr>
+<tr><td>1</td><td><strong>鏡頭校正</strong>:桶狀/枕狀變形、暗角、色差</td><td>暗角會影響你對整體亮度的判斷,先修掉再看</td></tr>
+<tr><td>2</td><td><strong>裁切與拉正</strong>:水平線、建築垂直線</td><td>構圖定案後,後面的局部調整才不會調到被裁掉的地方</td></tr>
+<tr><td>3</td><td><strong>去除髒點</strong>:感光元件灰塵、畫面裡的雜物</td><td>趁畫面還沒加對比,髒點比較容易看出來</td></tr>
+</table></div>
+<div class="box tip">
+<span class="lbl">找髒點的小技巧</span>
+<p style="margin-bottom:0">感光元件上的灰塵在<strong>小光圈 + 大片單色區域</strong>(天空、白牆)最明顯。檢查時把對比暫時拉到很高,灰塵會整片跳出來,清完再調回去。同一批照片的髒點位置一樣,可以把去斑設定同步到整批。</p>
+</div>
+
+<h3 id="s-14d9ab">雜訊與銳利化:最後才做</h3>
+<p><span class="src s-gen">通用知識</span> 這兩項要留到最後,原因是<strong>它們的正確用量取決於最終的輸出尺寸</strong>:一張要縮到 1080 px 發社群的照片,縮圖本身就會讓雜訊變得不明顯、也會損失一些銳度;但同一張要輸出成大圖輸出時,兩者的處理量完全不同。</p>
+<div class="tw"><table>
+<tr><th>項目</th><th>過量的症狀</th></tr>
+<tr><td>雜訊抑制</td><td>細節被抹平,頭髮、樹葉、布料紋理變成蠟像般的糊塊</td></tr>
+<tr><td>銳利化</td><td>高反差邊緣出現白邊(光暈),雜訊被一起放大變得顆粒粗糙</td></tr>
+</table></div>
+<p><span class="src s-mine">本站建議</span> 判斷用量時把畫面看在 100% 檢視,調到「剛好覺得夠」再退回來一點——螢幕上剛剛好的銳利化,輸出後通常就偏過頭了。</p>
+
+<h3 id="s-9c76e2">輸出:色彩空間比解析度更容易出錯</h3>
+<p><span class="src s-gen">通用知識</span> 照片發到社群之後「顏色變淡、沒那麼鮮豔」,幾乎都是同一個原因:檔案用了較廣的色彩空間(例如 Adobe RGB、Display P3),但顯示的地方用 sRGB 去解讀,顏色就會被壓扁。</p>
+<div class="tw"><table>
+<tr><th>用途</th><th>色彩空間</th><th>尺寸</th><th>格式</th></tr>
+<tr><td>社群、網站、傳給別人看</td><td><strong>sRGB</strong></td><td>長邊 2048–2560 px 通常夠用</td><td>JPEG,品質 80–90%</td></tr>
+<tr><td>自己存檔、之後可能再修</td><td>保留原始工作色彩空間</td><td>原始解析度</td><td>TIFF 或原 RAW + 編輯紀錄</td></tr>
+<tr><td>沖印、輸出大圖</td><td>依沖印店指定(常見 sRGB)</td><td>依尺寸與 dpi 需求</td><td>JPEG 最高品質或 TIFF</td></tr>
+</table></div>
+<div class="box warn">
+<span class="lbl">一個常見誤會</span>
+<p style="margin-bottom:0">「轉成 sRGB 會讓顏色變差」是反的。在<strong>會被 sRGB 環境顯示的場合</strong>,不轉才會變差——因為那些顏色會被錯誤解讀。廣色域只有在整條鏈路(檔案、軟體、螢幕)都支援時才有意義。影片端對應的規格選擇見<a href="#advanced:10-delivery-export.html">匯出與交付:編碼、解析度、不同平台規格怎麼選</a>。</p>
+</div>
+
+<h3 id="s-63f10d">沒有校色螢幕怎麼辦</h3>
+<p><span class="src s-mine">本站建議</span> 專業校色器不便宜,但沒有它也不代表只能亂調。幾個成本為零的做法:</p>
+<div class="tw"><table>
+<tr><th>做法</th><th>解決什麼</th></tr>
+<tr><td>螢幕亮度別開到最大,調到中等偏亮</td><td>螢幕太亮會讓你把照片修得偏暗,印出來一片黑</td></tr>
+<tr><td>修完在手機、平板、別人的螢幕上各看一次</td><td>找出「只有在我螢幕上才好看」的問題</td></tr>
+<tr><td>不要在陽光直射或全黑的環境修圖</td><td>環境光會嚴重影響你對亮度的判斷</td></tr>
+<tr><td>養成看示波器而不是只看畫面的習慣</td><td>數據不受螢幕偏色影響,見<a href="#advanced:02-scopes.html">讀懂示波器</a></td></tr>
+</table></div>
+
+<div class="drill"><span class="lbl">練習</span>
+<ol class="steps">
+<li>同一個場景拍一張 RAW 一張 JPEG,兩張都把曝光往上提兩級,比較暗部細節與雜訊的差異。</li>
+<li>挑一張有暗角與輕微歪斜的照片,照「鏡頭校正 → 裁切拉正 → 去斑」的順序處理一次,再開始調色。</li>
+<li>同一張修好的照片分別輸出 sRGB 與 Adobe RGB 兩個版本,上傳到社群後比較顯示出來的顏色。</li>
+<li>把自己最近修好的照片放到手機上看一次,記錄有沒有明顯偏暗或偏色——那就是你螢幕的偏差方向。</li>
+</ol></div>
+</div></section>

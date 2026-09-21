@@ -1,0 +1,104 @@
+<section data-t="幀率與快門:為什麼影片看起來不像電影" data-g="基礎設定">
+<div class="osd"><span class="hot">P4P</span><span class="no"></span></div>
+<div class="wrap">
+<h2 class="ch">幀率與快門:為什麼影片看起來不像電影</h2>
+<p class="sub">影片看起來「不順」「很像監視器」,通常不是畫質不夠,而是快門設定讓動態模糊的量不對。這一章解釋幀率與快門怎麼一起決定動態的質感。</p>
+
+<div class="box tldr">
+<span class="lbl">重點摘要</span>
+<ul>
+<li>幀率決定一秒切幾張、快門決定每一張糊多少,兩者一起決定動態看起來順不順。</li>
+<li>180 度快門法則:快門速度設成幀率的兩倍分之一(30fps → 1/60 秒),動態模糊最接近眼睛習慣。</li>
+<li>快門太快會讓動作變成一格一格的頓挫感,太慢則整個糊掉,兩者都不像「電影感」。</li>
+<li>戶外太亮時快門會被迫拉快,這正是需要 ND 濾鏡的時機——它讓你在大太陽下還能維持慢快門。</li>
+<li>慢動作要先決定「拍攝幀率」與「播放幀率」的比例,快門也要照拍攝幀率重算。</li>
+</ul>
+</div>
+
+<div class="box note">
+<span class="lbl">這章跟現有章節的分工</span>
+<p><a href="#pocket4pro:02-shooting-modes.html">拍照與錄影模式怎麼選</a>告訴你各種用途該選哪個解析度與幀率;這一章補的是<strong>為什麼</strong>——幀率與快門一起造成的動態質感,以及選定幀率之後快門該設多少。</p>
+</div>
+
+<h3 id="s-4e1f92">幀率切張數,快門決定每張糊多少</h3>
+<p><span class="src s-gen">影像通則</span> 影片是一連串靜止畫面快速播放。<strong>幀率(fps)</strong>決定一秒鐘切成幾張;<strong>快門速度</strong>決定每一張曝光多久,也就是那一張裡面的動態被「拖」出多長。兩者是獨立的設定,但觀感上必須互相配合:</p>
+
+<figure>
+<svg viewBox="0 0 640 170" role="img" aria-label="同一個移動物體在三種快門速度下的動態模糊差異:太快呈現分離的殘影、適中呈現自然拖影、太慢整個糊成一片">
+<rect width="640" height="170" fill="#fff"/>
+<g font-family="Noto Sans TC">
+<rect x="25" y="20" width="170" height="80" fill="#F0F0EC" stroke="#16191B" stroke-width="1.5"/>
+<circle cx="60" cy="60" r="11" fill="#16191B" fill-opacity=".35"/>
+<circle cx="110" cy="60" r="11" fill="#16191B" fill-opacity=".6"/>
+<circle cx="160" cy="60" r="11" fill="#16191B"/>
+<text x="110" y="118" text-anchor="middle" font-size="12" font-weight="700" fill="#C4453C">快門太快</text>
+<text x="110" y="133" text-anchor="middle" font-size="9.5" fill="#63676B">每張都很清楚,動作</text>
+<text x="110" y="146" text-anchor="middle" font-size="9.5" fill="#63676B">變成一格一格的頓挫</text>
+
+<rect x="235" y="20" width="170" height="80" fill="#F0F0EC" stroke="#16191B" stroke-width="1.5"/>
+<ellipse cx="320" cy="60" rx="40" ry="11" fill="#16191B" fill-opacity=".25"/>
+<circle cx="340" cy="60" r="11" fill="#16191B"/>
+<text x="320" y="118" text-anchor="middle" font-size="12" font-weight="700" fill="#37C97A">180 度(剛好)</text>
+<text x="320" y="133" text-anchor="middle" font-size="9.5" fill="#63676B">帶一點自然拖影,</text>
+<text x="320" y="146" text-anchor="middle" font-size="9.5" fill="#63676B">最接近眼睛的習慣</text>
+
+<rect x="445" y="20" width="170" height="80" fill="#F0F0EC" stroke="#16191B" stroke-width="1.5"/>
+<ellipse cx="530" cy="60" rx="72" ry="11" fill="#16191B" fill-opacity=".38"/>
+<text x="530" y="118" text-anchor="middle" font-size="12" font-weight="700" fill="#C4453C">快門太慢</text>
+<text x="530" y="133" text-anchor="middle" font-size="9.5" fill="#63676B">糊成一片,細節不見,</text>
+<text x="530" y="146" text-anchor="middle" font-size="9.5" fill="#63676B">手震也一起被放大</text>
+</g>
+</svg>
+<figcaption>三格都是同一個橫向移動的物體、同一個幀率,差別只有快門速度。左邊每格都凍結得太乾淨,播放時觀眾看到的是一跳一跳的位移;右邊拖太長,已經看不出那是什麼東西。中間那個「帶一點模糊」才是大腦覺得自然的量。</figcaption>
+</figure>
+
+<h3 id="s-a70c35">180 度快門法則:快門設成幀率的兩倍</h3>
+<p><span class="src s-gen">影像通則</span> 這條法則來自底片時代的轉盤式快門開角度(180 度代表每一格曝光時間是該格間隔的一半),沿用到數位就變成一條很好記的算式:</p>
+<div class="box tip">
+<span class="lbl">算式</span>
+<p style="margin-bottom:0"><strong>快門速度 = 1 ÷ (幀率 × 2)</strong>。選不到剛好的數值時,取最接近的那一檔就好,差一點點不影響觀感。</p>
+</div>
+<div class="tw"><table>
+<tr><th>拍攝幀率</th><th>快門速度設定</th><th>常見用途</th></tr>
+<tr><td>24fps</td><td>1/48(通常選 1/50)</td><td>最接近電影的動態質感</td></tr>
+<tr><td>30fps</td><td>1/60</td><td>本站建議新手的預設 <span class="src s-mine">本站建議</span></td></tr>
+<tr><td>60fps</td><td>1/120</td><td>動作流暢,也留有兩倍放慢的空間</td></tr>
+<tr><td>120fps</td><td>1/240</td><td>慢動作素材</td></tr>
+</table></div>
+<p>要不要嚴格遵守?<span class="src s-mine">本站建議</span> 日常 Vlog 其實沒那麼敏感,差一兩檔看不太出來。但<strong>拍有明顯橫向移動的畫面時(橫移運鏡、跟拍、車窗外的街景)差異會非常明顯</strong>——快門太快時,整片背景會像跳格一樣抖動,那是最常被抱怨「看起來很廉價」的畫面。</p>
+
+<h3 id="s-db86e1">戶外做不到慢快門,就是 ND 濾鏡的用途</h3>
+<p>白天戶外光線很強,如果快門維持在 1/60,畫面幾乎一定會過曝——相機只能自動把快門推到 1/500、1/1000 才壓得下來,動態模糊就消失了 <span class="src s-gen">影像通則</span>。這個問題<strong>不能靠調 ISO 或光圈解決</strong>,因為:</p>
+<div class="tw"><table>
+<tr><th>你可能想調的</th><th>為什麼解決不了</th></tr>
+<tr><td>降 ISO</td><td>已經在最低值了,沒得再降</td></tr>
+<tr><td>縮光圈</td><td>Pocket 4 Pro 這類小機身沒有可調光圈 <span class="src s-spec">官方/媒體規格</span></td></tr>
+<tr><td>調曝光補償</td><td>只會讓畫面變暗,相機還是用快門去達成</td></tr>
+</table></div>
+<p>所以唯一的解法是<strong>在鏡頭前擋掉一部分光</strong>,也就是 ND 濾鏡。選哪一種、雙鏡頭的濾鏡有什麼眉角,見<a href="#pocket4pro:17-accessory-optics.html">配件:光學類</a>;ND 的通用原理見<a href="#fund:12-filters.html">濾鏡通識:ND・CPL・漸層鏡</a>。</p>
+
+<h3 id="s-2c59f4">慢動作:先決定倍率,再回頭算快門</h3>
+<p>慢動作的倍率由<strong>拍攝幀率 ÷ 播放幀率</strong>決定,拍之前就要想好,事後改不了 <span class="src s-gen">影像通則</span>:</p>
+<div class="tw"><table>
+<tr><th>拍攝幀率</th><th>放進 30fps 時間軸</th><th>慢幾倍</th><th>對應快門</th></tr>
+<tr><td>60fps</td><td>播放速度 50%</td><td>2 倍慢</td><td>1/120</td></tr>
+<tr><td>120fps</td><td>播放速度 25%</td><td>4 倍慢</td><td>1/240</td></tr>
+<tr><td>240fps</td><td>播放速度 12.5%</td><td>8 倍慢</td><td>1/480</td></tr>
+</table></div>
+<div class="box warn">
+<span class="lbl">慢動作對光線的需求高很多</span>
+<p style="margin-bottom:0">高幀率代表快門必須更快,進光量大幅減少——240fps 需要的光量大約是 30fps 的八倍。這就是為什麼慢動作在室內或傍晚拍出來常常又暗又有雜訊:<strong>慢動作基本上是白天戶外才舒服的功能</strong>。機身上的實際操作見<a href="#pocket4pro:08-special-modes.html">進階拍攝模式:縮時・慢動作・長曝光</a>。</p>
+</div>
+
+<div class="box warn">
+<span class="lbl">新手最常踩的一個坑</span>
+<p style="margin-bottom:0">把曝光交給全自動,在大太陽下拍橫移運鏡,相機默默把快門推到 1/1000——畫面亮度正常,但每一顆運鏡都在抖。<strong>如果你只想記一件事:拍有橫向移動的畫面時,去確認一下快門是不是還在幀率的兩倍附近。</strong>手動干預曝光的做法見<a href="#pocket4pro:04-exposure-wb-basics.html">曝光與白平衡基礎</a>。</p>
+</div>
+
+<div class="drill"><span class="lbl">行動建議</span>
+<ol class="steps">
+<li>固定 30fps,分別用 1/60 與 1/1000 各拍一段左右橫移的畫面(拍同一個場景),回放比較背景的抖動差異。</li>
+<li>白天戶外試一次:把快門鎖在 1/60,看畫面是不是過曝;再裝上 ND 濾鏡,確認能不能壓回正常亮度。</li>
+<li>拍一段 120fps 的慢動作素材,放進 30fps 時間軸看看 4 倍慢的效果,並注意同一個場景的亮度比正常拍攝低多少。</li>
+</ol></div>
+</div></section>
