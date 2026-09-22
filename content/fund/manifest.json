@@ -4,8 +4,21 @@
   "subtitleHTML": "不分機型的共通原理:<br>曝光・構圖・攝影眼怎麼練",
   "titleSuffix": "攝影基礎與構圖思維 — 攝影教學技巧指南",
   "tool": null,
+  "_badgesNote": "章節標籤:new = 這次新增、updated = 這次大幅更新。側邊欄與章節標題都會顯示,內容不再算新的時候就把該筆刪掉。",
+  "badges": {
+    "28-learning-path.html": "new",
+    "20-geometric-composition.html": "new",
+    "21-camera-angle-height.html": "new",
+    "22-subject-separation.html": "new",
+    "23-perspective-distance.html": "new",
+    "24-dynamic-composition.html": "new",
+    "25-decisive-moment.html": "new",
+    "26-photo-series.html": "new",
+    "27-flash-basics.html": "new"
+  },
   "files": [
     "00-intro.html",
+    "28-learning-path.html",
     "10-memory-cards.html",
     "11-lens-basics.html",
     "12-filters.html",

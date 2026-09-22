@@ -4,6 +4,10 @@
   "subtitleHTML": "從照片調色到 DaVinci Resolve 剪輯<br>不分機型的新手到進階後製工作流",
   "titleSuffix": "攝影進階:調色與剪輯 — 攝影教學技巧指南",
   "tool": null,
+  "_badgesNote": "章節標籤:new = 這次新增、updated = 這次大幅更新。側邊欄與章節標題都會顯示,內容不再算新的時候就把該筆刪掉。",
+  "badges": {
+    "11-raw-and-export.html": "new"
+  },
   "files": [
     "00-intro.html",
     "01-color-fundamentals.html",

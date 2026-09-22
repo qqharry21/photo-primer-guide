@@ -148,6 +148,20 @@ main{margin-left:268px;margin-top:calc(44px + env(safe-area-inset-top));padding:
 .osd .no{margin-left:auto;opacity:.45}
 
 h2.ch{font-size:31px;font-weight:900;line-height:1.28;margin:38px 0 6px;letter-spacing:-.01em}
+
+/* ---------- NEW / 更新 標籤 ---------- */
+/* 側邊欄永遠是深色底,所以直接寫死高對比的填色;章節標題則跟著日夜模式走,
+   用外框+色字讓兩種背景都讀得清楚。標籤資料來自各分頁 manifest.json 的 badges。 */
+.nbadge{display:inline-block;font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;
+  padding:1px 5px;border-radius:3px;margin-left:6px;white-space:nowrap;font-weight:700;
+  vertical-align:1px}
+.nbadge-new{background:#4FD68C;color:#06240F}
+.nbadge-upd{background:#E0A93B;color:#241A06}
+.chbadge{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.12em;
+  padding:2px 8px;border-radius:4px;margin-left:12px;white-space:nowrap;font-weight:700;
+  border:1px solid currentColor;vertical-align:middle;position:relative;top:-4px}
+.chbadge-new{color:var(--af)}
+.chbadge-upd{color:var(--amber)}
 .sub{color:var(--muted);font-size:14.5px;margin:0 0 30px}
 h3{font-size:20px;font-weight:900;margin:44px 0 12px;line-height:1.4;
   padding-top:16px;padding-right:36px;border-top:2px solid var(--rule);position:relative}
@@ -450,7 +464,7 @@ mark.hit{background:rgba(55,201,122,.34);color:inherit;border-radius:2px;
   .pager button,#chapters button,.skchip{min-height:44px}
 }
 @media print{
-  #globalHeader,#nav,#bar,#sk,#toast,#favPanel,#favScrim,.pager,.osd{display:none!important}
+  #globalHeader,#nav,#bar,#sk,#toast,#favPanel,#favScrim,.pager,.osd,.chbadge{display:none!important}
   .favh3{display:none!important}
   main{margin:0}
   #main>section{display:block!important;page-break-after:always}
@@ -625,7 +639,7 @@ mark.hit{background:rgba(55,201,122,.34);color:inherit;border-radius:2px;
       var li = document.createElement('li');
       var b  = document.createElement('button');
       b.type = 'button';
-      b.innerHTML = '<span class="n">' + String(i).padStart(2,'0') + '</span><span>' + s.getAttribute('data-t') + '</span>';
+      b.innerHTML = '<span class="n">' + String(i).padStart(2,'0') + '</span><span>' + esc(s.getAttribute('data-t')) + badgeHTML(files[i], 'nbadge') + '</span>';
       b.addEventListener('click', function(){ show(i, true); });
       li.appendChild(b);
       var fb = document.createElement('button');
@@ -720,6 +734,30 @@ mark.hit{background:rgba(55,201,122,.34);color:inherit;border-radius:2px;
     }
   }
 
+  /* ---------- NEW / 更新 標籤 ----------
+     標籤資料放在各分頁 manifest.json 的 badges(檔名 → "new" | "updated"),
+     同一份資料同時餵給側邊欄與章節標題,不用在章節檔案裡重複標記;
+     內容不再算新的時候,把 manifest 裡那一筆刪掉就好。 */
+  var BADGE_LABEL = { 'new': 'NEW', 'updated': '更新' };
+  function badgeKind(file){
+    var b = manifest && manifest.badges;
+    return (b && b[file]) || null;
+  }
+  function badgeHTML(file, cls){
+    var kind = badgeKind(file);
+    if (!kind || !BADGE_LABEL[kind]) { return ''; }
+    var mod = kind === 'new' ? '-new' : '-upd';
+    return ' <span class="' + cls + ' ' + cls + mod + '">' + BADGE_LABEL[kind] + '</span>';
+  }
+  function decorateBadges(){
+    secs.forEach(function(sec, i){
+      var h2 = sec.querySelector('h2.ch');
+      if (!h2 || h2.querySelector('.chbadge')) { return; } // 保險:避免重複注入
+      var html = badgeHTML(files[i], 'chbadge');
+      if (html) { h2.insertAdjacentHTML('beforeend', html); }
+    });
+  }
+
   function decorateSections(){
     secs.forEach(function(sec, i){
       var file = files[i];
@@ -777,6 +815,7 @@ mark.hit{background:rgba(55,201,122,.34);color:inherit;border-radius:2px;
 
       buildNav();
       decorateSections();
+      decorateBadges();
       buildIndex();
       bindDx();
       if (window.Fav) { refreshFavUI(); }

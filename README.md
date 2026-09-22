@@ -112,12 +112,18 @@ content/
   "subtitleHTML": "每一項設定都對照官方繁體中文<br>操作說明書,標明出處頁碼",
   "titleSuffix": "RICOH GR IV 新手完全指南",
   "tool": { "label": "⎘ EXIF 貼文產生器", "tag": "工具", "href": "./caption.html" },
+  "badges": { "29-shot-grammar.html": "new", "17-accessory-optics.html": "updated" },
   "files": ["00-start.html", "01-body-map.html", "..."]
 }
 ```
 
 `files` 陣列的**順序就是章節順序**——這是全書唯一決定章節先後的地方。沒有 `tool` 的分頁把這個
 欄位設成 `null`（側邊欄就不會顯示工具連結）。
+
+`badges` 是選填的章節標籤,檔名對應到 `"new"`(這批新增)或 `"updated"`(這批大幅更新)。殼層會
+把它同時畫在**側邊欄目錄**與**章節大標題**上,所以只要在 manifest 宣告一次。標籤是設計成會過期
+的:某批內容不再算新的時候,就把那幾筆從 `badges` 裡刪掉,不要讓整個分頁都掛著 NEW。沒有列到的
+章節不會有標籤,整個 `badges` 欄位也可以省略不寫。
 
 ### 每一章的檔案長什麼樣子
 

@@ -4,6 +4,16 @@
   "subtitleHTML": "雙鏡頭口袋雲台相機<br>基礎認識・設定・拍攝手法・配件",
   "titleSuffix": "DJI Osmo Pocket 4 Pro 指南 — 攝影教學技巧指南",
   "tool": null,
+  "_badgesNote": "章節標籤:new = 這次新增、updated = 這次大幅更新。側邊欄與章節標題都會顯示,內容不再算新的時候就把該筆刪掉。",
+  "badges": {
+    "29-shot-grammar.html": "new",
+    "30-coverage-shotlist.html": "new",
+    "31-framerate-shutter.html": "new",
+    "32-handheld-technique.html": "new",
+    "33-moving-composition.html": "new",
+    "17-accessory-optics.html": "updated",
+    "28-dual-lens-movement.html": "updated"
+  },
   "files": [
     "00-what-is-it.html",
     "01-body-and-gestures.html",
