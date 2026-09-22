@@ -4,11 +4,11 @@
   "subtitleHTML": "每一項設定都對照官方繁體中文<br>操作說明書,標明出處頁碼",
   "titleSuffix": "RICOH GR IV 新手完全指南",
   "tool": { "label": "⎘ EXIF 貼文產生器", "tag": "工具", "href": "./caption.html" },
-  "_badgesNote": "章節標籤:new = 最近新增的章節、updated = 原本就有、最近補進重要內容的章節。側邊欄目錄與章節標題都會顯示。內容不再算新的時候就把該筆刪掉,標籤反映的是「最近改了什麼」,不是章節的重要性。",
+  "_badgesNote": "章節標籤:new = 新增的章節、updated = 原本就有、後來補進重要內容的章節。每一筆都要寫 date(該次改動的日期,YYYY-MM-DD),殼層只會顯示一個月內的標籤,過期的自動不畫,不必手動清。sections 選填,列出該次真正改到的 <h3 id=\"s-xxxxxx\">,標籤就會同時出現在那個段落標題上;整章都是新的(new)就不用寫。標籤反映的是「最近改了什麼」,不是章節的重要性。",
   "badges": {
-    "31-street-photography.html": "new",
-    "32-accessories-filters.html": "new",
-    "33-power-management.html": "new"
+    "31-street-photography.html": { "kind": "new", "date": "2026-09-09" },
+    "32-accessories-filters.html": { "kind": "new", "date": "2026-09-09" },
+    "33-power-management.html": { "kind": "new", "date": "2026-09-09" }
   },
   "files": [
     "00-start.html",

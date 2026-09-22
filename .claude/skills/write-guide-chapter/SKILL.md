@@ -73,21 +73,32 @@ visited before keep seeing the old content.
 ### Mark the chapter NEW in the manifest
 
 Each tab's `manifest.json` also has an optional `badges` object mapping
-filename → `"new"` or `"updated"`. The shell renders those as a small badge
-in **both** the sidebar entry and the chapter's `<h2 class="ch">` title, so
-you only declare it once:
+filename → `{ kind, date, sections }`. The shell renders that as a small
+badge in the sidebar entry, in the chapter's `<h2 class="ch">` title, and —
+when you list `sections` — next to those `<h3>` section titles, so you only
+declare it once:
 
 ```json
 "badges": {
-  "29-shot-grammar.html": "new",
-  "17-accessory-optics.html": "updated"
+  "29-shot-grammar.html":     { "kind": "new", "date": "2026-09-21" },
+  "17-accessory-optics.html": { "kind": "updated", "date": "2026-09-21",
+                                "sections": ["s-a26d52"] }
 }
 ```
 
-- Add `"new"` for a chapter you just created, `"updated"` for an existing
-  chapter you substantially expanded (a typo fix doesn't count).
-- These are meant to expire: when a batch stops being new, delete those
-  entries. Don't let the whole tab end up wearing a NEW badge.
+- `kind` is `"new"` for a chapter you just created, `"updated"` for an
+  existing chapter you substantially expanded (a typo fix doesn't count).
+- `date` (required, `YYYY-MM-DD`) is the date of that change. **Badges expire
+  one month after `date`** — the shell simply stops drawing them, everywhere
+  at once. So never hand-clean old entries to "unbadge" something; they age
+  out on their own and double as a record of when each chapter last changed.
+  The window lives in `index.html` as `BADGE_MONTHS`.
+- `sections` (optional) lists the `s-xxxxxx` ids of the `<h3>` sections that
+  change actually touched, so a reader doesn't have to re-read the whole
+  chapter to find the new part. Fill it in for every `"updated"` entry whose
+  new content sits inside a section; skip it when the change is in the TL;DR
+  box or the intro (above the first `<h3>`), and for `"new"` chapters, where
+  the whole file is new. Every id must exist in that chapter's HTML.
 - A site-wide sweep that touches every chapter (e.g. backfilling a TL;DR box
   into all of them) is **not** an `"updated"`: badging all ~110 chapters at
   once makes the badge meaningless. Only badge chapters whose own content

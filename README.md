@@ -112,7 +112,11 @@ content/
   "subtitleHTML": "每一項設定都對照官方繁體中文<br>操作說明書,標明出處頁碼",
   "titleSuffix": "RICOH GR IV 新手完全指南",
   "tool": { "label": "⎘ EXIF 貼文產生器", "tag": "工具", "href": "./caption.html" },
-  "badges": { "29-shot-grammar.html": "new", "17-accessory-optics.html": "updated" },
+  "badges": {
+    "29-shot-grammar.html":    { "kind": "new", "date": "2026-09-21" },
+    "17-accessory-optics.html": { "kind": "updated", "date": "2026-09-21",
+                                  "sections": ["s-a26d52"] }
+  },
   "files": ["00-start.html", "01-body-map.html", "..."]
 }
 ```
@@ -120,14 +124,26 @@ content/
 `files` 陣列的**順序就是章節順序**——這是全書唯一決定章節先後的地方。沒有 `tool` 的分頁把這個
 欄位設成 `null`（側邊欄就不會顯示工具連結）。
 
-`badges` 是選填的章節標籤,檔名對應到 `"new"`(這批新增)或 `"updated"`(這批大幅更新)。殼層會
-把它同時畫在**側邊欄目錄**與**章節大標題**上,所以只要在 manifest 宣告一次。標籤是設計成會過期
-的:某批內容不再算新的時候,就把那幾筆從 `badges` 裡刪掉,不要讓整個分頁都掛著 NEW。沒有列到的
-章節不會有標籤,整個 `badges` 欄位也可以省略不寫。
+`badges` 是選填的章節標籤,檔名對應到一筆 `{ kind, date, sections }`:
 
-目前這一輪標籤涵蓋的範圍是「新增或實質改寫過的章節」。判斷標準是:整份檔案是新開的就標 `new`,
-原本就存在、但補進了新的段落或方塊才標 `updated`。像「幫全站每一章補上重點摘要方塊」這種一次
-掃過所有章節的批次修改**不算**——那會讓每一章都掛上標籤,標籤就失去意義了。
+| 欄位 | 必填 | 說明 |
+| --- | --- | --- |
+| `kind` | 是 | `"new"`(新開的章節)或 `"updated"`(原本就有、後來補進重要內容) |
+| `date` | 是 | 那次改動的日期,`YYYY-MM-DD`。殼層拿它算標籤還新不新 |
+| `sections` | 否 | 這次真正改到的段落 `<h3 id="s-xxxxxx">` 的 id 陣列 |
+
+殼層會把它同時畫在**側邊欄目錄**與**章節大標題**上,所以只要在 manifest 宣告一次。有寫
+`sections` 的話,標籤還會多畫一份在那幾個**段落標題**旁邊——`updated` 的章節多半只有一兩段
+是新的,這樣讀者不必整章重讀就知道要看哪裡。整章都是新的(`new`)通常就不用寫 `sections`。
+
+**標籤只顯示一個月。** 殼層每次載入都拿 `date` 跟「今天往前推一個月」比,超過的那幾筆直接
+不畫——側邊欄、章節標題、段落標籤三處一起消失。所以標籤會自己過期,不需要記得回頭清 manifest;
+留在檔案裡的舊紀錄同時也是一份「哪一章什麼時候改的」的紀錄。保鮮期寫在 `index.html` 的
+`BADGE_MONTHS`(預設 `1`)。沒有列到的章節不會有標籤,整個 `badges` 欄位也可以省略不寫。
+
+什麼算「改過」:整份檔案是新開的就標 `new`,原本就存在、但補進了新的段落或方塊才標 `updated`。
+像「幫全站每一章補上重點摘要方塊」這種一次掃過所有章節的批次修改**不算**——那會讓每一章都掛上
+標籤,標籤就失去意義了。
 
 ### 每一章的檔案長什麼樣子
 
@@ -478,7 +494,7 @@ Instagram 的官方 Graph API 只開放給 Business / Creator 帳號,且需要�
 | `progress.js` | 閱讀進度的資料層與 Gist 同步邏輯(不碰 DOM,借用收藏功能的憑證) | 否 |
 | `scripts/add_h3_ids.py` | 一次性/可重複執行的工具:幫缺 id 的 `<h3>` 補上收藏用的錨點 id | 可,但建議留著當安全網 |
 | `tabs.json` | 分頁清單:id、側邊欄標籤、內容資料夾 | 否 |
-| `content/<分頁>/manifest.json` | 該分頁的品牌文字、章節檔名順序(`files`)與章節標籤(`badges`) | 否(每個分頁各一份) |
+| `content/<分頁>/manifest.json` | 該分頁的品牌文字、章節檔名順序(`files`)與會過期的章節標籤(`badges`) | 否(每個分頁各一份) |
 | `content/fund/chapters/*.html` | 攝影基礎分頁的章節內容(29 章) | 視內容而定 |
 | `content/griv/chapters/*.html` | GR IV 分頁的章節內容(34 章) | 視內容而定 |
 | `content/pocket4pro/chapters/*.html` | Pocket 4 Pro 分頁的章節內容(34 章) | 視內容而定 |
