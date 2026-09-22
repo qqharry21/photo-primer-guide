@@ -70,6 +70,33 @@ constant in `sw.js`** (e.g. `'gr4-v16'` → `'gr4-v17'`) — this is a static
 site cached offline by a service worker; without the bump, people who've
 visited before keep seeing the old content.
 
+### Mark the chapter NEW in the manifest
+
+Each tab's `manifest.json` also has an optional `badges` object mapping
+filename → `"new"` or `"updated"`. The shell renders those as a small badge
+in **both** the sidebar entry and the chapter's `<h2 class="ch">` title, so
+you only declare it once:
+
+```json
+"badges": {
+  "29-shot-grammar.html": "new",
+  "17-accessory-optics.html": "updated"
+}
+```
+
+- Add `"new"` for a chapter you just created, `"updated"` for an existing
+  chapter you substantially expanded (a typo fix doesn't count).
+- These are meant to expire: when a batch stops being new, delete those
+  entries. Don't let the whole tab end up wearing a NEW badge.
+- A site-wide sweep that touches every chapter (e.g. backfilling a TL;DR box
+  into all of them) is **not** an `"updated"`: badging all ~110 chapters at
+  once makes the badge meaningless. Only badge chapters whose own content
+  gained something a reader would want to go back for.
+- Keep the `badges` object in the same order as `files`, so the badge list
+  reads in chapter order.
+- A chapter with no entry simply renders no badge — the object can be
+  omitted entirely.
+
 ## Step 2: the chapter template
 
 Every chapter file is a single `<section>` with no surrounding `<html>`/`<head>`/
