@@ -4,8 +4,9 @@
   "subtitleHTML": "從照片調色到 DaVinci Resolve 剪輯<br>不分機型的新手到進階後製工作流",
   "titleSuffix": "攝影進階:調色與剪輯 — 攝影教學技巧指南",
   "tool": null,
-  "_badgesNote": "章節標籤:new = 這次新增、updated = 這次大幅更新。側邊欄與章節標題都會顯示,內容不再算新的時候就把該筆刪掉。",
+  "_badgesNote": "章節標籤:new = 最近新增的章節、updated = 原本就有、最近補進重要內容的章節。側邊欄目錄與章節標題都會顯示。內容不再算新的時候就把該筆刪掉,標籤反映的是「最近改了什麼」,不是章節的重要性。",
   "badges": {
+    "03-basic-workflow.html": "updated",
     "11-raw-and-export.html": "new"
   },
   "files": [

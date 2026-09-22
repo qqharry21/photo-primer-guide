@@ -125,6 +125,10 @@ content/
 的:某批內容不再算新的時候,就把那幾筆從 `badges` 裡刪掉,不要讓整個分頁都掛著 NEW。沒有列到的
 章節不會有標籤,整個 `badges` 欄位也可以省略不寫。
 
+目前這一輪標籤涵蓋的範圍是「新增或實質改寫過的章節」。判斷標準是:整份檔案是新開的就標 `new`,
+原本就存在、但補進了新的段落或方塊才標 `updated`。像「幫全站每一章補上重點摘要方塊」這種一次
+掃過所有章節的批次修改**不算**——那會讓每一章都掛上標籤,標籤就失去意義了。
+
 ### 每一章的檔案長什麼樣子
 
 跟以前完全一樣的 `<section>` 格式，只是不再需要 `data-ch="N"` 屬性（章節順序改由 manifest 的
@@ -473,9 +477,12 @@ Instagram 的官方 Graph API 只開放給 Business / Creator 帳號,且需要�
 | `favorites.js` | 收藏功能的資料層與 Gist 同步邏輯(不碰 DOM) | 否 |
 | `progress.js` | 閱讀進度的資料層與 Gist 同步邏輯(不碰 DOM,借用收藏功能的憑證) | 否 |
 | `scripts/add_h3_ids.py` | 一次性/可重複執行的工具:幫缺 id 的 `<h3>` 補上收藏用的錨點 id | 可,但建議留著當安全網 |
-| `tabs.json` | 分頁清單 | 否 |
-| `content/<分頁>/manifest.json` | 該分頁的品牌文字與章節檔名順序 | 否(每個分頁各一份) |
-| `content/<分頁>/chapters/*.html` | 該分頁實際的章節內容 | 視內容而定 |
+| `tabs.json` | 分頁清單:id、側邊欄標籤、內容資料夾 | 否 |
+| `content/<分頁>/manifest.json` | 該分頁的品牌文字、章節檔名順序(`files`)與章節標籤(`badges`) | 否(每個分頁各一份) |
+| `content/fund/chapters/*.html` | 攝影基礎分頁的章節內容(29 章) | 視內容而定 |
+| `content/griv/chapters/*.html` | GR IV 分頁的章節內容(34 章) | 視內容而定 |
+| `content/pocket4pro/chapters/*.html` | Pocket 4 Pro 分頁的章節內容(34 章) | 視內容而定 |
+| `content/advanced/chapters/*.html` | 攝影進階分頁的章節內容(12 章) | 視內容而定 |
 | `caption.html` | EXIF 貼文產生器(GR IV 專用工具頁) | 可,但要一併移除 GR IV 分頁裡的連結與 `sw.js` 的相關說明 |
 | `manifest.webmanifest` | PWA 設定:名稱、圖示、啟動方式 | 否 |
 | `sw.js` | Service Worker:離線快取 | 否 |
@@ -483,6 +490,7 @@ Instagram 的官方 Graph API 只開放給 Business / Creator 帳號,且需要�
 | `icon-maskable-512.png` | Android 自適應圖示 | 否 |
 | `apple-touch-icon.png` | iOS 主畫面圖示 | 否 |
 | `.nojekyll` | 關閉 GitHub Pages 的 Jekyll 處理 | 否 |
+| `.claude/skills/write-guide-chapter/SKILL.md` | 寫新章節時要遵守的格式與慣例(給 Claude Code 用的技能說明) | 可,但新增章節會失去一致性 |
 | `README.md` | 這份說明 | 可 |
 
 ---

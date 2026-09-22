@@ -88,6 +88,12 @@ you only declare it once:
   chapter you substantially expanded (a typo fix doesn't count).
 - These are meant to expire: when a batch stops being new, delete those
   entries. Don't let the whole tab end up wearing a NEW badge.
+- A site-wide sweep that touches every chapter (e.g. backfilling a TL;DR box
+  into all of them) is **not** an `"updated"`: badging all ~110 chapters at
+  once makes the badge meaningless. Only badge chapters whose own content
+  gained something a reader would want to go back for.
+- Keep the `badges` object in the same order as `files`, so the badge list
+  reads in chapter order.
 - A chapter with no entry simply renders no badge — the object can be
   omitted entirely.
 
