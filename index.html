@@ -150,8 +150,9 @@ main{margin-left:268px;margin-top:calc(44px + env(safe-area-inset-top));padding:
 h2.ch{font-size:31px;font-weight:900;line-height:1.28;margin:38px 0 6px;letter-spacing:-.01em}
 
 /* ---------- NEW / 更新 標籤 ---------- */
-/* 側邊欄永遠是深色底,所以直接寫死高對比的填色;章節標題則跟著日夜模式走,
-   用外框+色字讓兩種背景都讀得清楚。標籤資料來自各分頁 manifest.json 的 badges。 */
+/* 側邊欄永遠是深色底,所以直接寫死高對比的填色;章節標題與段落標題則跟著日夜模式走,
+   用外框+色字讓兩種背景都讀得清楚。標籤資料來自各分頁 manifest.json 的 badges,
+   每一筆的 date 超過一個月殼層就不畫了。 */
 .nbadge{display:inline-block;font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;
   padding:1px 5px;border-radius:3px;margin-left:6px;white-space:nowrap;font-weight:700;
   vertical-align:1px}
@@ -162,6 +163,17 @@ h2.ch{font-size:31px;font-weight:900;line-height:1.28;margin:38px 0 6px;letter-s
   border:1px solid currentColor;vertical-align:middle;position:relative;top:-4px}
 .chbadge-new{color:var(--af)}
 .chbadge-upd{color:var(--amber)}
+/* 段落層級:manifest 的 sections 指到哪個 h3,標籤就落在那個小標題後面,
+   比章節標題那顆再小一號,才不會蓋過標題本身 */
+.secbadge{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;
+  padding:1px 6px;border-radius:3px;margin-left:10px;white-space:nowrap;font-weight:700;
+  border:1px solid currentColor;vertical-align:middle;position:relative;top:-2px}
+.secbadge-new{color:var(--af)}
+.secbadge-upd{color:var(--amber)}
+/* 標籤文字用 ::after 畫,不進 h3 的 textContent —— 搜尋索引與閱讀進度都是讀
+   h3 文字的,真的塞一個 <span>更新</span> 進去會讓小標題到處多出兩個字 */
+.secbadge-new::after{content:"NEW"}
+.secbadge-upd::after{content:"更新"}
 .sub{color:var(--muted);font-size:14.5px;margin:0 0 30px}
 h3{font-size:20px;font-weight:900;margin:44px 0 12px;line-height:1.4;
   padding-top:16px;padding-right:36px;border-top:2px solid var(--rule);position:relative}
@@ -464,7 +476,7 @@ mark.hit{background:rgba(55,201,122,.34);color:inherit;border-radius:2px;
   .pager button,#chapters button,.skchip{min-height:44px}
 }
 @media print{
-  #globalHeader,#nav,#bar,#sk,#toast,#favPanel,#favScrim,.pager,.osd,.chbadge{display:none!important}
+  #globalHeader,#nav,#bar,#sk,#toast,#favPanel,#favScrim,.pager,.osd,.chbadge,.secbadge{display:none!important}
   .favh3{display:none!important}
   main{margin:0}
   #main>section{display:block!important;page-break-after:always}
@@ -735,26 +747,68 @@ mark.hit{background:rgba(55,201,122,.34);color:inherit;border-radius:2px;
   }
 
   /* ---------- NEW / 更新 標籤 ----------
-     標籤資料放在各分頁 manifest.json 的 badges(檔名 → "new" | "updated"),
-     同一份資料同時餵給側邊欄與章節標題,不用在章節檔案裡重複標記;
-     內容不再算新的時候,把 manifest 裡那一筆刪掉就好。 */
-  var BADGE_LABEL = { 'new': 'NEW', 'updated': '更新' };
-  function badgeKind(file){
+     標籤資料放在各分頁 manifest.json 的 badges:
+       "12-filters.html": { "kind": "new", "date": "2026-09-09" }
+       "17-accessory-optics.html": { "kind": "updated", "date": "2026-09-21",
+                                     "sections": ["s-a26d52"] }
+     同一份宣告同時餵給側邊欄目錄、章節大標題,以及 sections 指到的段落標題,
+     不用在章節檔案裡重複標記。date 是那次改動的日期,超過 BADGE_MONTHS 個月
+     就自動不畫——標籤本來就該過期,這樣不必記得回頭清 manifest。 */
+  var BADGE_LABEL  = { 'new': 'NEW', 'updated': '更新' };
+  var BADGE_MONTHS = 1;   // 標籤的保鮮期(月)
+
+  /* 一個月是日曆上的一個月,不是固定 30 天。先把「今天往前推一個月」算成門檻日,
+     碰到 3/31 減一個月這種日子沒有對應日的情況,就退到該月最後一天。 */
+  function badgeCutoff(){
+    var now = new Date(); now.setHours(0, 0, 0, 0);
+    var day = now.getDate();
+    var c = new Date(now.getFullYear(), now.getMonth() - BADGE_MONTHS, 1);
+    var last = new Date(c.getFullYear(), c.getMonth() + 1, 0).getDate();
+    c.setDate(Math.min(day, last));
+    return c;
+  }
+  function badgeEntry(file){
     var b = manifest && manifest.badges;
-    return (b && b[file]) || null;
+    var e = b && b[file];
+    if (!e) { return null; }
+    if (typeof e === 'string') { e = { kind: e }; }   // 舊格式:沒有日期就不過期
+    if (!BADGE_LABEL[e.kind]) { return null; }
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(e.date || '');
+    if (m){
+      var d = new Date(+m[1], +m[2] - 1, +m[3]);
+      if (d < badgeCutoff()) { return null; }         // 過期,當作沒標
+    }
+    return e;
   }
   function badgeHTML(file, cls){
-    var kind = badgeKind(file);
-    if (!kind || !BADGE_LABEL[kind]) { return ''; }
-    var mod = kind === 'new' ? '-new' : '-upd';
-    return ' <span class="' + cls + ' ' + cls + mod + '">' + BADGE_LABEL[kind] + '</span>';
+    var e = badgeEntry(file);
+    if (!e) { return ''; }
+    var mod   = e.kind === 'new' ? '-new' : '-upd';
+    var title = e.date ? ' title="' + esc(e.date) + ' ' + BADGE_LABEL[e.kind] + '"' : '';
+    return ' <span class="' + cls + ' ' + cls + mod + '"' + title + '>' +
+           BADGE_LABEL[e.kind] + '</span>';
   }
   function decorateBadges(){
     secs.forEach(function(sec, i){
+      var e  = badgeEntry(files[i]);
       var h2 = sec.querySelector('h2.ch');
-      if (!h2 || h2.querySelector('.chbadge')) { return; } // 保險:避免重複注入
-      var html = badgeHTML(files[i], 'chbadge');
-      if (html) { h2.insertAdjacentHTML('beforeend', html); }
+      if (h2 && !h2.querySelector('.chbadge')){
+        var html = badgeHTML(files[i], 'chbadge');
+        if (html) { h2.insertAdjacentHTML('beforeend', html); }
+      }
+      /* sections:這次真正改到的段落,標籤跟著落在那個 h3 上,讀者不用整章重看 */
+      if (!e || !e.sections || !e.sections.length) { return; }
+      e.sections.forEach(function(id){
+        var h3 = sec.querySelector('h3[id="' + id + '"]');
+        if (!h3 || h3.querySelector('.secbadge')) { return; }
+        var span = document.createElement('span');
+        /* 文字由 CSS ::after 畫上去(見 .secbadge-new/-upd),
+           這樣 h3.textContent 還是乾淨的標題,搜尋索引跟閱讀進度才不會被污染 */
+        span.className = 'secbadge secbadge' + (e.kind === 'new' ? '-new' : '-upd');
+        span.title = (e.date ? e.date + ' ' : '') + BADGE_LABEL[e.kind];
+        /* 收藏鈕是絕對定位在 h3 右上角的,標籤要接在標題文字後面,插在它前面 */
+        h3.insertBefore(span, h3.querySelector('.favh3'));
+      });
     });
   }
 
