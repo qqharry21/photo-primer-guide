@@ -8,6 +8,8 @@
   "badges": {
     "02-shooting-modes.html": { "kind": "updated", "date": "2026-09-21" },
     "31-framerate-shutter.html": { "kind": "new", "date": "2026-09-21" },
+    "09-custom-button.html": { "kind": "updated", "date": "2026-09-22", "sections": ["s-a33c17", "s-b649a1", "s-0e7b1d"] },
+    "34-preset-cookbook.html": { "kind": "new", "date": "2026-09-22" },
     "29-shot-grammar.html": { "kind": "new", "date": "2026-09-21" },
     "22-movement-basics.html": { "kind": "updated", "date": "2026-09-21" },
     "32-handheld-technique.html": { "kind": "new", "date": "2026-09-21" },
@@ -29,6 +31,7 @@
     "07-gimbal-modes.html",
     "08-special-modes.html",
     "09-custom-button.html",
+    "34-preset-cookbook.html",
     "10-vlog-technique.html",
     "11-tracking-shots.html",
     "12-portrait-closeup.html",
