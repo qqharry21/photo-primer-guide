@@ -6,7 +6,8 @@
   "tool": null,
   "_badgesNote": "章節標籤:new = 新增的章節、updated = 原本就有、後來補進重要內容的章節。每一筆都要寫 date(該次改動的日期,YYYY-MM-DD),殼層只會顯示一個月內的標籤,過期的自動不畫,不必手動清。sections 選填,列出該次真正改到的 <h3 id=\"s-xxxxxx\">,標籤就會同時出現在那個段落標題上;整章都是新的(new)就不用寫。標籤反映的是「最近改了什麼」,不是章節的重要性。",
   "badges": {
-    "02-shooting-modes.html": { "kind": "updated", "date": "2026-09-21" },
+    "00-what-is-it.html": { "kind": "updated", "date": "2026-09-23", "sections": ["s-a856d7"] },
+    "02-shooting-modes.html": { "kind": "updated", "date": "2026-09-23", "sections": ["s-edff2d"] },
     "31-framerate-shutter.html": { "kind": "new", "date": "2026-09-21" },
     "05-dlog2-color.html": { "kind": "updated", "date": "2026-09-22", "sections": ["s-515293"] },
     "09-custom-button.html": { "kind": "updated", "date": "2026-09-22", "sections": ["s-a33c17", "s-b649a1", "s-0e7b1d"] },
@@ -18,7 +19,8 @@
     "23-movement-advanced.html": { "kind": "updated", "date": "2026-09-21", "sections": ["s-3b28fc"] },
     "28-dual-lens-movement.html": { "kind": "new", "date": "2026-09-09" },
     "30-coverage-shotlist.html": { "kind": "new", "date": "2026-09-21" },
-    "17-accessory-optics.html": { "kind": "updated", "date": "2026-09-21", "sections": ["s-a26d52"] }
+    "17-accessory-optics.html": { "kind": "updated", "date": "2026-09-21", "sections": ["s-a26d52"] },
+    "20-precautions.html": { "kind": "updated", "date": "2026-09-23", "sections": ["s-4561de", "s-525d03"] }
   },
   "files": [
     "00-what-is-it.html",
