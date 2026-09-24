@@ -7,7 +7,7 @@
    注意:收藏功能與閱讀進度的資料都存在 localStorage,跟這裡的 Cache API
    快取是完全分開的儲存機制——version 升版、甚至清掉 RUNTIME/CORE 快取,
    都不會動到使用者的收藏或閱讀進度資料。 */
-const VERSION   = 'gr4-v31';
+const VERSION   = 'gr4-v32';
 const CORE      = VERSION + '-core';
 const RUNTIME   = VERSION + '-runtime';
 
