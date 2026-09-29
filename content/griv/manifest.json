@@ -8,7 +8,8 @@
   "badges": {
     "31-street-photography.html": { "kind": "new", "date": "2026-09-09" },
     "32-accessories-filters.html": { "kind": "new", "date": "2026-09-09" },
-    "33-power-management.html": { "kind": "new", "date": "2026-09-09" }
+    "33-power-management.html": { "kind": "new", "date": "2026-09-09" },
+    "34-mobile-raw-editing.html": { "kind": "new", "date": "2026-09-29" }
   },
   "files": [
     "00-start.html",
@@ -33,6 +34,7 @@
     "18-portrait.html",
     "19-playback-edit.html",
     "20-wifi-grworld.html",
+    "34-mobile-raw-editing.html",
     "21-file-management.html",
     "32-accessories-filters.html",
     "33-power-management.html",
