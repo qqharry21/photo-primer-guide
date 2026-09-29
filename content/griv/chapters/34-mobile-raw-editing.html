@@ -1,0 +1,64 @@
+<section data-t="手機端調色:用手機修 GR IV 的 RAW(DNG)" data-g="拍完之後">
+<div class="osd"><span class="hot">DNG</span><span>LRM</span><span>Snapseed</span><span class="no"></span></div>
+<div class="wrap">
+<h2 class="ch">手機端調色:用手機修 GR IV 的 RAW(DNG)</h2>
+<p class="sub">不開電腦,直接在手機上把 RAW 調出想要的樣子——先把檔案弄到手機上,再挑一個順手的 App。</p>
+
+<div class="box tldr">
+<span class="lbl">重點摘要</span>
+<ul>
+<li>GR IV 的 RAW 是標準 DNG,手機本來就能開,不用先轉檔</li>
+<li>傳輸有兩條路:GR WORLD 傳輸預約(方便但慢)、USB-C 讀卡機接手機(快但要多帶一個小配件),大量 RAW 建議後者</li>
+<li>手機調色 App 挑 <strong>Adobe Lightroom Mobile</strong> 最完整,想要更簡單就用 Snapseed,iOS 上 Darkroom 對 DNG 的處理也不錯</li>
+<li>手機上的調色順序跟桌面版邏輯一樣:白平衡 → 曝光對比 → 高光陰影 → 局部微調 → 輸出,見<a href="#advanced:03-basic-workflow.html">基礎調色實戰</a></li>
+</ul>
+</div>
+
+<p><a href="#griv:20-wifi-grworld.html">上一章</a>講了怎麼把照片弄到手機上,這一章接著講:RAW 檔案到手機之後,實際上要怎麼調色。</p>
+
+<h3 id="s-d3f8a1">先把 RAW 弄到手機上</h3>
+<p>GR IV 拍出來的 RAW 是標準 <strong>DNG</strong> 格式,手機上支援 DNG 的 App 都能直接開,不需要額外轉檔 <span class="src s-man">說明書 p.89</span>。傳輸方式有兩種:</p>
+<div class="tw"><table>
+<tr><th>方式</th><th>優點</th><th>缺點</th></tr>
+<tr><td><strong>GR WORLD 傳輸預約</strong></td><td>不用額外配件,手機直接收</td><td>RAW 檔案大,無線傳輸明顯比傳 JPEG 慢很多,大量檔案很花時間</td></tr>
+<tr><td><strong>USB-C 讀卡機接手機</strong></td><td>速度快,一次搬移大量 RAW 也不會等太久</td><td>要多帶一個讀卡機配件</td></tr>
+</table></div>
+<p><span class="src s-mine">本站建議</span> 偶爾傳幾張精選照片,用 <a href="#griv:20-wifi-grworld.html">GR WORLD 的傳輸預約</a>就夠了,操作方式見上一章;但如果打算把整卡 RAW 都搬到手機上慢慢挑,直接用 USB-C 讀卡機接手機的系統相簿/檔案 App 匯入,會省下大量等待時間。</p>
+
+<h3 id="s-7c2e94">手機上能開 DNG 的 App</h3>
+<div class="tw"><table>
+<tr><th>App</th><th>特點</th></tr>
+<tr><td><strong>Adobe Lightroom Mobile</strong>(免費)</td><td>功能最完整:白平衡、色調曲線、HSL、局部遮罩都有,雲端同步方便跨裝置接續調整,新手也建議從這個開始</td></tr>
+<tr><td><strong>Snapseed</strong>(免費)</td><td>介面簡單直覺,支援 RAW,但工具比 Lightroom 陽春(沒有色調曲線),適合想快速調整不想學太多的人</td></tr>
+<tr><td><strong>Darkroom</strong>(iOS,付費)</td><td>DNG 處理細緻,色彩管理做得好,介面對 RAW 調整很直覺</td></tr>
+<tr><td><strong>VSCO</strong></td><td>濾鏡風格強、氛圍調很方便,但深度調色能力不如 Lightroom,適合喜歡套風格而非精修的人</td></tr>
+</table></div>
+<p><span class="src s-mine">本站建議</span> 只裝一個的話選 Lightroom Mobile——功能夠用,雲端同步也代表手機調到一半的檔案,之後接到電腦上還能繼續調。Snapseed 適合當作「懶得學」時的備案。</p>
+
+<h3 id="s-b491fe">調色順序:跟桌面版邏輯一樣</h3>
+<p>不管在手機還是電腦上調 RAW,基本邏輯是一樣的——先修正客觀問題,再做主觀風格選擇。桌面版(DaVinci Resolve)完整的四步驟拆解見<a href="#advanced:03-basic-workflow.html">基礎調色實戰:白平衡到局部微調的四步驟</a>,這裡直接對應到手機 App 的操作順序:</p>
+<div class="tw"><table>
+<tr><th>步驟</th><th>手機上在做什麼</th></tr>
+<tr><td>1. 白平衡</td><td>用色溫、色調兩個滑桿校正回中性,不要只靠螢幕肉眼判斷,盡量對照畫面裡已知該是灰/白的物體</td></tr>
+<tr><td>2. 曝光與對比</td><td>先用曝光把整體亮度拉到合理範圍,再用對比決定畫面的「力度」</td></tr>
+<tr><td>3. 高光與陰影</td><td>亮部快貼頂就拉低高光,暗部細節看不清就拉高陰影——這一步是精修,不是重新定義範圍</td></tr>
+<tr><td>4. 局部微調</td><td>用遮罩/漸層工具只處理特定區域(天空、臉部),不影響前面已經調好的整體基準</td></tr>
+<tr><td>5. 輸出</td><td>確認輸出解析度與色彩空間,再匯出分享</td></tr>
+</table></div>
+<div class="box warn">
+<span class="lbl">順序別顛倒</span>
+<p style="margin-bottom:0">跟桌面版一樣的錯誤在手機上更容易犯:因為手機調色常常是滑到哪調到哪,一不小心就先加了對比、飽和度,最後才發現白平衡偏色。先把白平衡跟整體明暗處理好,再開始做風格選擇,才不會調到一半發現顏色基準跑掉,前面的調整全部要重來。</p>
+</div>
+
+<div class="box tip">
+<span class="lbl">RAW 才有得調</span>
+<p style="margin-bottom:0">這幾步的調色空間建立在拍的是 <strong>RAW</strong> 而不是 JPEG 上——JPEG 在機身裡已經把白平衡、對比「烤」進畫面,手機上能調的範圍小很多。GR IV 怎麼設定拍 RAW,見<a href="#griv:14-file-format.html">檔案格式與儲存</a>。</p>
+</div>
+
+<div class="drill"><span class="lbl">行動建議</span>
+<ol>
+<li>挑一張你覺得「拍得不錯但顏色怪怪的」RAW,用 USB-C 讀卡機傳到手機,裝 Lightroom Mobile 照上面五個步驟調一次。</li>
+<li>同一張照片分別用 Lightroom Mobile 跟 Snapseed 各調一次,比較兩個 App 用起來的差異,決定自己比較適合哪一個。</li>
+<li>下次外拍精選 3-5 張想馬上分享的照片,改用 GR WORLD 傳輸預約,體會兩種傳輸方式的速度差異。</li>
+</ol></div>
+</div></section>
